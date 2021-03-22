@@ -1,4 +1,4 @@
-# simple-uniswap-sdk
+# simple-sushiswap-sdk
 
 [![npm version](https://badge.fury.io/js/simple-uniswap-sdk.svg)](https://badge.fury.io/js/simple-uniswap-sdk)
 ![downloads](https://img.shields.io/npm/dw/simple-uniswap-sdk)
