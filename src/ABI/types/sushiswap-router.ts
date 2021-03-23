@@ -1,16 +1,17 @@
-import { EthersContractContextV5 } from 'ethereum-abi-types-generator';
 import {
+  ContractTransaction,
+  ContractInterface,
+  BytesLike as Arrayish,
   BigNumber,
   BigNumberish,
-  BytesLike as Arrayish,
-  ContractTransaction,
 } from 'ethers';
+import { EthersContractContextV5 } from 'ethereum-abi-types-generator';
 
 export type ContractContext = EthersContractContextV5<
-  UniswapRouter,
-  UniswapRouterMethodNames,
-  UniswapRouterEventsContext,
-  UniswapRouterEvents
+  SushiswapRouter,
+  SushiswapRouterMethodNames,
+  SushiswapRouterEventsContext,
+  SushiswapRouterEvents
 >;
 
 export declare type EventFilter = {
@@ -53,9 +54,9 @@ export interface ContractCallOverrides {
    */
   gasLimit?: number;
 }
-export type UniswapRouterEvents = undefined;
-export interface UniswapRouterEventsContext {}
-export type UniswapRouterMethodNames =
+export type SushiswapRouterEvents = undefined;
+export interface SushiswapRouterEventsContext {}
+export type SushiswapRouterMethodNames =
   | 'WETH'
   | 'addLiquidity'
   | 'addLiquidityETH'
@@ -80,7 +81,7 @@ export type UniswapRouterMethodNames =
   | 'swapExactTokensForTokensSupportingFeeOnTransferTokens'
   | 'swapTokensForExactETH'
   | 'swapTokensForExactTokens';
-export interface UniswapRouter {
+export interface SushiswapRouter {
   /**
    * Payable: false
    * Constant: true

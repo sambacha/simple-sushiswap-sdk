@@ -1,11 +1,11 @@
 import { EthersProvider } from '../../../ethers-provider';
 import { Token } from '../../token/models/token';
-import { UniswapPairSettings } from './uniswap-pair-settings';
+import { SushiswapPairSettings } from './sushiswap-pair-settings';
 
-export interface UniswapPairFactoryContext {
+export interface SushiswapPairFactoryContext {
   fromToken: Token;
   toToken: Token;
   ethereumAddress: string;
-  settings: UniswapPairSettings;
+  settings: SushiswapPairSettings;
   ethersProvider: EthersProvider;
 }

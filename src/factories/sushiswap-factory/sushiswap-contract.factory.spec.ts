@@ -1,54 +1,54 @@
 import { isHexString } from 'ethers/lib/utils';
 import { ChainId, WETH } from '../..';
 import { EthersProvider } from '../../ethers-provider';
-import { MOCKFUN } from '../../mocks/fun-token.mock';
-import { UniswapContractFactory } from './uniswap-contract.factory';
+import { MOCK1INCH } from '../../mocks/1inch-token.mock';
+import { SushiswapContractFactory } from './sushiswap-contract.factory';
 
-describe('UniswapContractFactory', () => {
+describe('SushiswapContractFactory', () => {
   const ethersProvider = new EthersProvider(ChainId.MAINNET);
 
-  const uniswapContractFactory = new UniswapContractFactory(ethersProvider);
+  const sushiswapContractFactory = new SushiswapContractFactory(ethersProvider);
 
   it('allPairs', async () => {
-    const result = await uniswapContractFactory.allPairs('0x01');
-    expect(result).toEqual('0x3139Ffc91B99aa94DA8A2dc13f1fC36F9BDc98eE');
+    const result = await sushiswapContractFactory.allPairs('0x01');
+    expect(result).toEqual('0x06da0fd433C1A5d7a4faa01111c044910A184553');
   });
 
   it('allPairsLength', async () => {
-    const result = await uniswapContractFactory.allPairsLength();
+    const result = await sushiswapContractFactory.allPairsLength();
     expect(isHexString(result)).toEqual(true);
   });
 
   it('createPair', () => {
-    const result = uniswapContractFactory.createPair(
-      MOCKFUN().contractAddress,
+    const result = sushiswapContractFactory.createPair(
+      MOCK1INCH().contractAddress,
       WETH.MAINNET().contractAddress
     );
     expect(result).toEqual(
-      '0xc9c65396000000000000000000000000419d0d8bdd9af5e606ae2232ed285aff190e711b000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+      '0xc9c65396000000000000000000000000111111111117dc0aa78b770fa6a738034120c302000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
     );
   });
 
   it('feeTo', async () => {
-    const result = await uniswapContractFactory.feeTo();
+    const result = await sushiswapContractFactory.feeTo();
     expect(isHexString(result)).toEqual(true);
   });
 
   it('feeToSetter', async () => {
-    const result = await uniswapContractFactory.feeToSetter();
+    const result = await sushiswapContractFactory.feeToSetter();
     expect(isHexString(result)).toEqual(true);
   });
 
   it('getPair', async () => {
-    const result = await uniswapContractFactory.getPair(
+    const result = await sushiswapContractFactory.getPair(
       WETH.MAINNET().contractAddress,
-      MOCKFUN().contractAddress
+      MOCK1INCH().contractAddress
     );
-    expect(result).toEqual('0x05B0c1D8839eF3a989B33B6b63D3aA96cB7Ec142');
+    expect(result).toEqual('0x86f518368E0d49d5916e2BD9EB162E9952b7b04d');
   });
 
   it('setFeeTo', async () => {
-    const result = await uniswapContractFactory.setFeeTo(
+    const result = await sushiswapContractFactory.setFeeTo(
       '0x05B0c1D8839eF3a989B33B6b63D3aA96cB7Ec142'
     );
     expect(result).toEqual(
@@ -57,7 +57,7 @@ describe('UniswapContractFactory', () => {
   });
 
   it('setFeeToSetter', async () => {
-    const result = await uniswapContractFactory.setFeeToSetter(
+    const result = await sushiswapContractFactory.setFeeToSetter(
       '0x05B0c1D8839eF3a989B33B6b63D3aA96cB7Ec142'
     );
     expect(result).toEqual(

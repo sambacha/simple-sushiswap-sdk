@@ -1,4 +1,4 @@
-import { Observable as UniswapStream } from 'rxjs';
+import { Observable as SushiswapStream } from 'rxjs';
 import { RouteQuote } from '../../router/models/route-quote';
 import { Token } from '../../token/models/token';
 import { Transaction } from './transaction';
@@ -21,6 +21,6 @@ export interface TradeContext {
     balance: string;
   };
   transaction: Transaction;
-  quoteChanged$: UniswapStream<TradeContext>;
+  quoteChanged$: SushiswapStream<TradeContext>;
   destroy: () => void;
 }

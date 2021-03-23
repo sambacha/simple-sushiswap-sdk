@@ -1,4 +1,4 @@
-export class UniswapPairSettings {
+export class SushiswapPairSettings {
   slippage: number;
   deadlineMinutes: number;
   disableMultihops: boolean;

@@ -1,7 +1,7 @@
 import { ErrorCodes } from '../..';
 
-export class UniswapError extends Error {
-  public name = 'UniswapError';
+export class SushiswapError extends Error {
+  public name = 'SushiswapError';
   public code: ErrorCodes;
   public message: string;
   constructor(message: string, code: ErrorCodes) {

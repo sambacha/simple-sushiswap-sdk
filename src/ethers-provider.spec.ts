@@ -1,5 +1,5 @@
-import { ChainId, ErrorCodes, UniswapError } from '.';
-import { ContractContext as PairContractContext } from './ABI/types/uniswap-pair';
+import { ChainId, ErrorCodes, SushiswapError } from '.';
+import { ContractContext as PairContractContext } from './ABI/types/sushiswap-pair';
 import { ContractContext } from './common/contract-context';
 import { EthersProvider } from './ethers-provider';
 import { MockEthereumAddress } from './mocks/ethereum-address.mock';
@@ -47,7 +47,7 @@ describe('EthersProvider', () => {
       expect(() => {
         new EthersProvider(10293, MOCK_PROVIDER_URL());
       }).toThrowError(
-        new UniswapError(
+        new SushiswapError(
           'Can not find chain name for 10293',
           ErrorCodes.canNotFindChainId
         )

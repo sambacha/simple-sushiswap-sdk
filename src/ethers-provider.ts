@@ -1,6 +1,6 @@
 import { Contract, ContractInterface, providers } from 'ethers';
 import { ErrorCodes } from './common/errors/error-codes';
-import { UniswapError } from './common/errors/uniswap-error';
+import { SushiswapError } from './common/errors/sushiswap-error';
 import { ChainId, ChainNames } from './enums/chain-id';
 
 export class EthersProvider {
@@ -9,7 +9,7 @@ export class EthersProvider {
     if (providerUrl) {
       const chainName = ChainNames.get(chainId);
       if (!chainName) {
-        throw new UniswapError(
+        throw new SushiswapError(
           `Can not find chain name for ${chainId}`,
           ErrorCodes.canNotFindChainId
         );

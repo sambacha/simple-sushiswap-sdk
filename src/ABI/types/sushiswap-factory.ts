@@ -1,11 +1,17 @@
+import {
+  ContractTransaction,
+  ContractInterface,
+  BytesLike as Arrayish,
+  BigNumber,
+  BigNumberish,
+} from 'ethers';
 import { EthersContractContextV5 } from 'ethereum-abi-types-generator';
-import { BigNumber, BigNumberish, ContractTransaction } from 'ethers';
 
 export type ContractContext = EthersContractContextV5<
-  UniswapFactory,
-  UniswapFactoryMethodNames,
-  UniswapFactoryEventsContext,
-  UniswapFactoryEvents
+  SushiswapFactory,
+  SushiswapFactoryMethodNames,
+  SushiswapFactoryEventsContext,
+  SushiswapFactoryEvents
 >;
 
 export declare type EventFilter = {
@@ -48,11 +54,11 @@ export interface ContractCallOverrides {
    */
   gasLimit?: number;
 }
-export type UniswapFactoryEvents = 'PairCreated';
-export interface UniswapFactoryEventsContext {
+export type SushiswapFactoryEvents = 'PairCreated';
+export interface SushiswapFactoryEventsContext {
   PairCreated(...parameters: any): EventFilter;
 }
-export type UniswapFactoryMethodNames =
+export type SushiswapFactoryMethodNames =
   | 'new'
   | 'allPairs'
   | 'allPairsLength'
@@ -62,7 +68,7 @@ export type UniswapFactoryMethodNames =
   | 'getPair'
   | 'setFeeTo'
   | 'setFeeToSetter';
-export interface UniswapFactory {
+export interface SushiswapFactory {
   /**
    * Payable: false
    * Constant: false

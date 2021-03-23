@@ -1,18 +1,18 @@
 import BigNumber from 'bignumber.js';
-import { ChainId, ErrorCodes, UniswapError, WETH } from '../..';
+import { ChainId, ErrorCodes, SushiswapError, WETH } from '../..';
 import { EthersProvider } from '../../ethers-provider';
-import { MOCKFUN } from '../../mocks/fun-token.mock';
-import { MOCKREP } from '../../mocks/rep-token.mock';
-import { UniswapRouterFactory } from './uniswap-router.factory';
+import { MOCK1INCH } from '../../mocks/1inch-token.mock';
+import { MOCKAAVE } from '../../mocks/aave-token.mock';
+import { SushiswapRouterFactory } from './sushiswap-router.factory';
 
-describe('UniswapRouterFactory', () => {
+describe('SushiswapRouterFactory', () => {
   const ethersProvider = new EthersProvider(ChainId.MAINNET);
 
   describe('erc20 > erc20', () => {
-    const fromToken = MOCKFUN();
-    const toToken = MOCKREP();
+    const fromToken = MOCK1INCH();
+    const toToken = MOCKAAVE();
 
-    const uniswapRouterFactory = new UniswapRouterFactory(
+    const sushiswapRouterFactory = new SushiswapRouterFactory(
       fromToken,
       toToken,
       false,
@@ -21,13 +21,13 @@ describe('UniswapRouterFactory', () => {
 
     describe('getAllPossibleRoutes', () => {
       it('should get all possible routes', async () => {
-        const result = await uniswapRouterFactory.getAllPossibleRoutes();
+        const result = await sushiswapRouterFactory.getAllPossibleRoutes();
         expect(result.length > 0).toEqual(true);
         expect(result.filter((c) => c.length > 2).length > 0).toEqual(true);
       });
 
       it('should only return direct routes (in this case return nothing as there is no direct route)', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -41,14 +41,14 @@ describe('UniswapRouterFactory', () => {
 
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
-        const result = await uniswapRouterFactory.getAllPossibleRoutesWithQuotes(
+        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
           new BigNumber(1)
         );
         expect(result.length > 0).toEqual(true);
       });
 
       it('should only return direct routes (in this case return nothing as there is no direct route)', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -64,14 +64,14 @@ describe('UniswapRouterFactory', () => {
 
     describe('findBestRoute', () => {
       it('should find best route', async () => {
-        const result = await uniswapRouterFactory.findBestRoute(
+        const result = await sushiswapRouterFactory.findBestRoute(
           new BigNumber(100)
         );
-        expect(result.bestRouteQuote.routeText).toEqual('FUN > WETH > REP');
+        expect(result.bestRouteQuote.routeText).toEqual('1INCH > WETH > AAVE');
       });
 
       it('should throw an error as there is no best route with disableMultihops turned on', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -81,7 +81,7 @@ describe('UniswapRouterFactory', () => {
         await expect(
           factory.findBestRoute(new BigNumber(100))
         ).rejects.toThrowError(
-          new UniswapError(
+          new SushiswapError(
             `No routes found for ${fromToken.contractAddress} > ${toToken.contractAddress}`,
             ErrorCodes.noRoutesFound
           )
@@ -91,10 +91,10 @@ describe('UniswapRouterFactory', () => {
   });
 
   describe('erc20 > eth', () => {
-    const fromToken = MOCKFUN();
+    const fromToken = MOCK1INCH();
     const toToken = WETH.MAINNET();
 
-    const uniswapRouterFactory = new UniswapRouterFactory(
+    const sushiswapRouterFactory = new SushiswapRouterFactory(
       fromToken,
       toToken,
       false,
@@ -103,13 +103,13 @@ describe('UniswapRouterFactory', () => {
 
     describe('getAllPossibleRoutes', () => {
       it('should get all possible routes', async () => {
-        const result = await uniswapRouterFactory.getAllPossibleRoutes();
+        const result = await sushiswapRouterFactory.getAllPossibleRoutes();
         expect(result.length > 0).toEqual(true);
         expect(result.filter((c) => c.length > 2).length > 0).toEqual(true);
       });
 
       it('should only return direct routes', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -126,14 +126,14 @@ describe('UniswapRouterFactory', () => {
 
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
-        const result = await uniswapRouterFactory.getAllPossibleRoutesWithQuotes(
+        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
           new BigNumber(1)
         );
         expect(result.length > 0).toEqual(true);
       });
 
       it('should only return direct routes', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -151,14 +151,14 @@ describe('UniswapRouterFactory', () => {
 
     describe('findBestRoute', () => {
       it('should find best route', async () => {
-        const result = await uniswapRouterFactory.findBestRoute(
+        const result = await sushiswapRouterFactory.findBestRoute(
           new BigNumber(100)
         );
-        expect(result.bestRouteQuote.routeText).toEqual('FUN > WETH');
+        expect(result.bestRouteQuote.routeText).toEqual('1INCH > WETH');
       });
 
       it('should return best route', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -167,7 +167,7 @@ describe('UniswapRouterFactory', () => {
 
         const result = await factory.findBestRoute(new BigNumber(100));
 
-        expect(result.bestRouteQuote.routeText).toEqual('FUN > WETH');
+        expect(result.bestRouteQuote.routeText).toEqual('1INCH > WETH');
         expect(
           result.triedRoutesQuote.filter((c) => c.routePathArray.length > 2)
             .length > 0
@@ -178,9 +178,9 @@ describe('UniswapRouterFactory', () => {
 
   describe('eth > erc20', () => {
     const fromToken = WETH.MAINNET();
-    const toToken = MOCKFUN();
+    const toToken = MOCK1INCH();
 
-    const uniswapRouterFactory = new UniswapRouterFactory(
+    const sushiswapRouterFactory = new SushiswapRouterFactory(
       fromToken,
       toToken,
       false,
@@ -189,13 +189,13 @@ describe('UniswapRouterFactory', () => {
 
     describe('getAllPossibleRoutes', () => {
       it('should get all possible routes', async () => {
-        const result = await uniswapRouterFactory.getAllPossibleRoutes();
+        const result = await sushiswapRouterFactory.getAllPossibleRoutes();
         expect(result.length > 0).toEqual(true);
         expect(result.filter((c) => c.length > 2).length > 0).toEqual(true);
       });
 
       it('should only return direct routes', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -212,14 +212,14 @@ describe('UniswapRouterFactory', () => {
 
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
-        const result = await uniswapRouterFactory.getAllPossibleRoutesWithQuotes(
+        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
           new BigNumber(1)
         );
         expect(result.length > 0).toEqual(true);
       });
 
       it('should only return direct routes', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -237,14 +237,14 @@ describe('UniswapRouterFactory', () => {
 
     describe('findBestRoute', () => {
       it('should find best route', async () => {
-        const result = await uniswapRouterFactory.findBestRoute(
+        const result = await sushiswapRouterFactory.findBestRoute(
           new BigNumber(100)
         );
-        expect(result.bestRouteQuote.routeText).toEqual('WETH > FUN');
+        expect(result.bestRouteQuote.routeText).toEqual('WETH > 1INCH');
       });
 
       it('should return best route', async () => {
-        const factory = new UniswapRouterFactory(
+        const factory = new SushiswapRouterFactory(
           fromToken,
           toToken,
           true,
@@ -253,7 +253,7 @@ describe('UniswapRouterFactory', () => {
 
         const result = await factory.findBestRoute(new BigNumber(100));
 
-        expect(result.bestRouteQuote.routeText).toEqual('WETH > FUN');
+        expect(result.bestRouteQuote.routeText).toEqual('WETH > 1INCH');
         expect(
           result.triedRoutesQuote.filter((c) => c.routePathArray.length > 2)
             .length > 0

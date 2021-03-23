@@ -1,8 +1,8 @@
 import { ChainId } from '../../enums/chain-id';
 import { EthersProvider } from '../../ethers-provider';
-import { UniswapRouterContractFactory } from './uniswap-router-contract.factory';
+import { SushiswapRouterContractFactory } from './sushiswap-router-contract.factory';
 
-export class UniswapRouterContractFactoryPublic extends UniswapRouterContractFactory {
+export class SushiswapRouterContractFactoryPublic extends SushiswapRouterContractFactory {
   constructor(chainId: ChainId, providerUrl?: string | undefined) {
     super(new EthersProvider(chainId, providerUrl));
   }

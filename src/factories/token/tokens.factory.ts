@@ -1,7 +1,7 @@
 import { ContractCallContext, Multicall } from 'ethereum-multicall';
 import { ContractContext } from '../../common/contract-context';
 import { ErrorCodes } from '../../common/errors/error-codes';
-import { UniswapError } from '../../common/errors/uniswap-error';
+import { SushiswapError } from '../../common/errors/sushiswap-error';
 import { EthersProvider } from '../../ethers-provider';
 import { Token } from './models/token';
 
@@ -70,7 +70,7 @@ export class TokensFactory {
 
       return tokens;
     } catch (error) {
-      throw new UniswapError(
+      throw new SushiswapError(
         'invalid from or to contract tokens',
         ErrorCodes.invalidFromOrToContractToken
       );

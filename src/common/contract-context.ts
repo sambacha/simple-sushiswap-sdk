@@ -2,34 +2,34 @@ import { JsonFragment } from '@ethersproject/abi';
 
 export class ContractContext {
   /**
-   * The uniswap router address
+   * The sushiswap router address
    */
-  public static routerAddress = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D';
+  public static routerAddress = '0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F';
 
   /**
-   * The uniswap factory address
+   * The sushiswap factory address
    */
-  public static factoryAddress = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f';
+  public static factoryAddress = '0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac';
 
   /**
-   * The uniswap pair address
+   * The sushiswap pair address
    */
-  public static pairAddress = '0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f';
+  public static pairAddress = '0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac';
 
   /**
-   * Uniswap v2 router
+   * sushiswap v2 router
    */
-  public static routerAbi: JsonFragment[] = require('../ABI/uniswap-router-v2.json');
+  public static routerAbi: JsonFragment[] = require('../ABI/sushiswap-router-v2.json');
 
   /**
-   * Uniswap v2 factory
+   * sushiswap v2 factory
    */
-  public static factoryAbi: JsonFragment[] = require('../ABI/uniswap-factory-v2.json');
+  public static factoryAbi: JsonFragment[] = require('../ABI/sushiswap-factory-v2.json');
 
   /**
-   * Uniswap v2 pair
+   * sushiswap v2 pair
    */
-  public static pairAbi: JsonFragment[] = require('../ABI/uniswap-pair-v2.json');
+  public static pairAbi: JsonFragment[] = require('../ABI/sushiswap-pair-v2.json');
 
   /**
    * ERC20 abi

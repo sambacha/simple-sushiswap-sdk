@@ -1,11 +1,11 @@
 # simple-sushiswap-sdk
 
-[![npm version](https://badge.fury.io/js/simple-uniswap-sdk.svg)](https://badge.fury.io/js/simple-uniswap-sdk)
-![downloads](https://img.shields.io/npm/dw/simple-uniswap-sdk)
+[![npm version](https://badge.fury.io/js/simple-sushiswap-sdk.svg)](https://badge.fury.io/js/simple-sushiswap-sdk)
+![downloads](https://img.shields.io/npm/dw/simple-sushiswap-sdk)
 
-Uniswap SDK which handles the routes automatically for you, changes in trade quotes reactive subscriptions, exposure to formatted easy to understand information, bringing back the best trade quotes automatically, generating transactions for you and much more. All the uniswap logic for you in a simple to easy understand interface to hook straight into your dApp without having to understand how it all works.
+Sushiswap SDK which handles the routes automatically for you, changes in trade quotes reactive subscriptions, exposure to formatted easy to understand information, bringing back the best trade quotes automatically, generating transactions for you and much more. All the Sushiswap logic for you in a simple to easy understand interface to hook straight into your dApp without having to understand how it all works.
 
-Please note this is not owned or maintained by uniswap and is a open source package for anyone to use freely.
+Please note this is not owned or maintained by sushiswap and is a open source package for anyone to use freely.
 
 ## Features 🚀
 
@@ -32,7 +32,7 @@ Please note this is not owned or maintained by uniswap and is a open source pack
 
 - 🚀query many tokens in 1 jsonrpc call perfect to get token metadata fast
   <br/>
-- 🚀all the uniswap contracts are all exposed for your use with full typings if you wanted to call a more bespoke method
+- 🚀all the sushiswap contracts are all exposed for your use with full typings if you wanted to call a more bespoke method
   <br/>
 - 🚀 and much more!!
 
@@ -40,38 +40,34 @@ Please note this is not owned or maintained by uniswap and is a open source pack
 
 As a ethereum dApp developer you try to get your dApp experience as integrated as possible, Ethereum right now is hard to show in a web2.0 world as it is. On top of this as a developer you have to learn all the complex stuff for the blockchain which can take its toll on you.
 
-When I was integrating uniswap on our wallet I found that their `SDK` was a bit too much for what I needed. Deepdown from the dApp point of view I only really cared about getting the best price for the user with all the fees related. I also found myself having to write a lot of custom code which I thought could be abstracted away so nobody has to deal with that again. A lot of the uniswap features like routing is all done in their client itself which is great but not when you want to use it in a more integrated approach in your on dApp.
-
-`Uniswap` is one of the BEST projects on ethereum and one of my favourites. My motivation here is to create a library which allows more people to integrate it on their dApp without having to worry about how their amazing software links together. This makes the whole user experience better and allows more developers to get involved integrating uniswap in their dApp with a web2.0 experience, and on top of this also growing the usage of it.
-
-p.s I have huge love for unicorns
+When I was integrating sushiswap on our wallet I found that their `SDK` was a bit too much for what I needed. Deepdown from the dApp point of view I only really cared about getting the best price for the user with all the fees related. I also found myself having to write a lot of custom code which I thought could be abstracted away so nobody has to deal with that again. A lot of the sushiswap features like routing is all done in their client itself which is great but not when you want to use it in a more integrated approach in your on dApp.
 
 # Installing
 
 ## npm
 
 ```bash
-$ npm install simple-uniswap-sdk
+$ npm install simple-sushiswap-sdk
 ```
 
 ## yarn
 
 ```bash
-$ yarn add simple-uniswap-sdk
+$ yarn add simple-sushiswap-sdk
 ```
 
 # SDK guide
 
-## Creating a uniswap pair factory
+## Creating a sushiswap pair factory
 
-The uniswap pair factory is an instance which is joint together with the `from` token and the `to` token, it is all self contained in the instance and exposes easy methods for you to call to start using uniswap.
+The sushiswap pair factory is an instance which is joint together with the `from` token and the `to` token, it is all self contained in the instance and exposes easy methods for you to call to start using sushiswap.
 
 ```ts
-export class UniswapPair {
+export class SushiswapPair {
   constructor(
-    private _uniswapPairContext:
-      | UniswapPairContextForChainId
-      | UniswapPairContextForProviderUrl
+    private _sushiswapPairContext:
+      | SushiswapPairContextForChainId
+      | SushiswapPairContextForProviderUrl
 )
 ```
 
@@ -84,25 +80,26 @@ export enum ChainId {
   KOVAN = 42,
 }
 
-interface UniswapPairContextBase {
+interface SushiswapPairContextBase {
   fromTokenContractAddress: string;
   toTokenContractAddress: string;
   ethereumAddress: string;
-  settings?: UniswapPairSettings | undefined;
+  settings?: SushiswapPairSettings | undefined;
 }
 
-export interface UniswapPairContextForChainId extends UniswapPairContextBase {
+export interface SushiswapPairContextForChainId
+  extends SushiswapPairContextBase {
   chainId: ChainId | number;
 }
 
-export interface UniswapPairContextForProviderUrl
-  extends UniswapPairContextForChainId {
+export interface SushiswapPairContextForProviderUrl
+  extends SushiswapPairContextForChainId {
   providerUrl: string;
 }
 ```
 
 ```ts
-export class UniswapPairSettings {
+export class SushiswapPairSettings {
   slippage: number;
   deadlineMinutes: number;
   disableMultihops: boolean;
@@ -120,11 +117,11 @@ export class UniswapPairSettings {
 ```
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
-  fromTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  fromTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the contract address of the token you want to convert TO
   toTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the ethereum address of the user using this part of the dApp
@@ -132,7 +129,7 @@ const uniswapPair = new UniswapPair({
   chainId: ChainId.MAINNET,
   // you can pass in the provider url as well if you want
   // providerUrl: YOUR_PROVIDER_URL,
-  settings: new UniswapPairSettings({
+  settings: new SushiswapPairSettings({
     // if not supplied it will use `0.005` which is 0.5%
     // please pass it in as a full number decimal so 0.7%
     // would be 0.007
@@ -147,7 +144,7 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPair = await sushiswapPair.createFactory();
 ```
 
 ## Catching error
@@ -155,8 +152,8 @@ const uniswapPairFactory = await uniswapPair.createFactory();
 I know randomly throwing errors with no error codes is a pain when writing dApps. In this package when we throw we have our own custom error. This has error codes you can map to what actually happened to allow your dApp to handle them gracefully.
 
 ```ts
-export class UniswapError extends Error {
-  public name = 'UniswapError';
+export class SushiswapError extends Error {
+  public name = 'SushiswapError';
   public code: ErrorCodes;
   public message: string;
   constructor(message: string, code: ErrorCodes) {
@@ -185,7 +182,7 @@ export enum ErrorCodes {
 }
 ```
 
-## Uniswap pair factory
+## Sushiswap pair factory
 
 ### toToken
 
@@ -208,13 +205,13 @@ export interface Token {
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
-  fromTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  fromTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
+  toTokenContractAddress: '0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9',
   // the ethereum address of the user using this part of the dApp
   ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   // you can pass in the provider url as well if you want
@@ -223,17 +220,17 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const toToken = uniswapPairFactory.toToken;
+const toToken = sushiswapPairFactory.toToken;
 console.log(toToken);
 // toToken:
 {
   chainId: 1,
-  contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
+  contractAddress: '0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9',
   decimals: 18,
-  symbol: 'REP',
-  name: 'Reputation'
+  symbol: 'AAVE',
+  name: 'Aave Token'
 }
 ```
 
@@ -258,11 +255,11 @@ export interface Token {
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
-  fromTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  fromTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the contract address of the token you want to convert TO
   toTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the ethereum address of the user using this part of the dApp
@@ -273,17 +270,17 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const fromToken = uniswapPairFactory.fromToken;
+const fromToken = sushiswapPairFactory.fromToken;
 console.log(fromToken);
 // fromToken:
 {
   chainId: 1,
-  contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-  decimals: 8,
-  symbol: 'FUN',
-  name: 'FunFair'
+  contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+  decimals: 18,
+  symbol: '1INCH',
+  name: '1INCH Token'
 }
 ```
 
@@ -291,7 +288,7 @@ console.log(fromToken);
 
 This will generate you the trade with all the information you need to show to the user on the dApp. It will find the best route price for you automatically. You will still need to send the transaction if they confirm the swap, we generate the transaction for you but you will still need to estimate the gas and get them to sign and send it on the dApp once they confirm the swap.
 
-It will also return a `hasEnoughAllowance` in the `TradeContext` trade response, if the allowance approved for moving tokens is below the amount sending to the uniswap router this will be false if not true. We still return the quote but if this is `false` you need to make sure you send the approval generated data first before being able to do the swap. We advise you check the allowance before you execute the trade which you should do anyway or it will fail onchain. You can use our `hasGotEnoughAllowance` method below to check and also our `generateApproveMaxAllowanceData` to generate the transaction for the user to appove moving of the tokens.
+It will also return a `hasEnoughAllowance` in the `TradeContext` trade response, if the allowance approved for moving tokens is below the amount sending to the sushiswap router this will be false if not true. We still return the quote but if this is `false` you need to make sure you send the approval generated data first before being able to do the swap. We advise you check the allowance before you execute the trade which you should do anyway or it will fail onchain. You can use our `hasGotEnoughAllowance` method below to check and also our `generateApproveMaxAllowanceData` to generate the transaction for the user to appove moving of the tokens.
 
 Please note `ROPSTEN`, `RINKEBY`, `GÖRLI` and `KOVAN` will only use `WETH` as a main currency unlike `MAINNET` which uses everything, so you will get less routes on those testnets.
 
@@ -307,7 +304,7 @@ export interface TradeContext {
   baseConvertRequest: string;
   // the min amount you will receive taking off the slippage
   // if the price changes below that then
-  // the uniswap contract will throw
+  // the sushiswap contract will throw
   // this will be formatted in readable number
   // so you can render straight out the box
   minAmountConvertQuote: string;
@@ -339,7 +336,7 @@ export interface TradeContext {
     routePathArray: string[];
   }[];
   // if the allowance approved for moving tokens is below the amount sending to the
-  // uniswap router this will be false if not true
+  // sushiswap router this will be false if not true
   // this is not reactive so if you get the trade quote
   // and this returns false but then you do the approval
   // transaction, this old context will still say false
@@ -372,7 +369,7 @@ export interface TradeContext {
   // this is a stream which emits if the quote has changed, this will emit
   // not matter what you should listen to this for the source of truth
   // for a reactive dApp. If you dont listen to this the user could end up
-  // sending a uniswap transaction which price is now out of date
+  // sending a sushiswap transaction which price is now out of date
   quoteChanged$: Observable<TradeContext>;
   // when you generate a trade it does more then just return data, it makes
   // sure your data stays in sync with the `quoteChanged$`, so once you have
@@ -408,34 +405,34 @@ export enum ChainId {
 #### ERC20 > ERC20
 
 ```ts
-import { UniswapPair, ChainId, TradeContext } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId, TradeContext } from 'simple-sushiswap-sdk';
 
 // the contract address of the token you want to convert FROM
-const fromTokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const fromTokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 // the contract address of the token you want to convert TO
-const toTokenContractAddress = '0x1985365e9f78359a9B6AD760e32412f4a445E862';
+const toTokenContractAddress = '0x7Fc66500c84A76Ad7e9c93437bFc5Ac33E2DDaE9';
 // the ethereum address of the user using this part of the dApp
 const ethereumAddress = '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
-  fromTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  fromTokenContractAddress,
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
+  toTokenContractAddress,
   // the ethereum address of the user using this part of the dApp
-  ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
+  ethereumAddress,
   // you can pass in the provider url as well if you want
   // providerUrl: YOUR_PROVIDER_URL,
   chainId: ChainId.MAINNET,
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
 // the amount is the proper entered amount
 // so if they enter 10 pass in 10
 // it will work it all out for you
-const trade = await uniswapPairFactory.trade('10');
+const trade = await sushiswapPairFactory.trade('10');
 
 // subscribe to quote changes
 trade.quoteChanged$.subscribe((value: TradeContext) => {
@@ -453,10 +450,10 @@ console.log(trade);
   routePathTokenMap: [
      {
        chainId: 1,
-       contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-       decimals: 8,
-       symbol: 'FUN',
-       name: 'FunFair'
+       contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+       decimals: 18,
+       symbol: '1INCH',
+       name: '1INCH Token'
      },
      {
        chainId: 1,
@@ -476,22 +473,22 @@ console.log(trade);
        chainId: 1,
        contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
        decimals: 18,
-       symbol: 'REP',
-       name: 'Reputation'
+       symbol: 'AAVE',
+       name: 'Aave Token'
      }
    ],
-  routeText: 'FUN > DAI > WETH > REP',
-  routePath:['0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b', '0x6B175474E89094C44Da98b954EedeAC495271d0F', '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','0x1985365e9f78359a9B6AD760e32412f4a445E862' ],
+  routeText: '1INCH > DAI > WETH > AAVE',
+  routePath:['0x111111111117dC0aa78b770fA6A738034120C302', '0x6B175474E89094C44Da98b954EedeAC495271d0F', '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2','0x1985365e9f78359a9B6AD760e32412f4a445E862' ],
   allTriedRoutesQuotes: [
       {
         expectedConvertQuote: '0.014730394044348867',
         routePathArrayTokenMap: [
           {
             chainId: 1,
-            contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-            symbol: FUN,
-            decimals: 8,
-            name: 'FunFair',
+            contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+            symbol: 1INCH,
+            decimals: 18,
+            name: '1INCH Token',
           },
           {
             chainId: 1,
@@ -503,14 +500,14 @@ console.log(trade);
           {
             chainId: 1,
             contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
-            symbol: 'REP',
+            symbol: 'AAVE',
             decimals: 18,
-            name: 'Reputation',
+            name: 'Aave Token',
           },
         ],
-        routeText: 'FUN > WETH > REP',
+        routeText: '1INCH > WETH > AAVE',
         routePathArray: [
-          '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+          '0x111111111117dC0aa78b770fA6A738034120C302',
           '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
           '0x1985365e9f78359a9B6AD760e32412f4a445E862',
         ],
@@ -520,10 +517,10 @@ console.log(trade);
         routePathArrayTokenMap: [
           {
             chainId: 1,
-            contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-            symbol: 'FUN',
-            decimals: 8,
-            name: 'FunFair',
+            contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+            symbol: '1INCH',
+            decimals: 18,
+            name: '1INCH Token',
           },
           {
             chainId: 1,
@@ -542,14 +539,14 @@ console.log(trade);
           {
             chainId: 1,
             contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
-            symbol: 'REP',
+            symbol: 'AAVE',
             decimals: 18,
-            name: 'Reputation',
+            name: 'Aave Token',
           },
         ],
-        routeText: 'FUN > DAI > WETH > REP',
+        routeText: '1INCH > DAI > WETH > AAVE',
         routePathArray: [
-          '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+          '0x111111111117dC0aa78b770fA6A738034120C302',
           '0x6B175474E89094C44Da98b954EedeAC495271d0F',
           '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
           '0x1985365e9f78359a9B6AD760e32412f4a445E862',
@@ -560,10 +557,10 @@ console.log(trade);
         routePathArrayTokenMap: [
           {
             chainId: 1,
-            contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-            symbol: 'FUN',
-            decimals: 8,
-            name: 'FunFair',
+            contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+            symbol: '1INCH',
+            decimals: 18,
+            name: '1INCH Token',
           },
           {
             chainId: 1,
@@ -582,14 +579,14 @@ console.log(trade);
           {
             chainId: 1,
             contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
-            symbol: 'REP',
+            symbol: 'AAVE',
             decimals: 18,
-            name: 'Reputation',
+            name: 'Aave Token',
           },
         ],
-        routeText: 'FUN > USDC > WETH > REP',
+        routeText: '1INCH > USDC > WETH > AAVE',
         routePathArray: [
-          '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+          '0x111111111117dC0aa78b770fA6A738034120C302',
           '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
           '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
           '0x1985365e9f78359a9B6AD760e32412f4a445E862',
@@ -600,10 +597,10 @@ console.log(trade);
         routePathArrayTokenMap: [
           {
             chainId: 1,
-            contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-            symbol: 'FUN',
-            decimals: 8,
-            name: 'FunFair',
+            contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+            symbol: '1INCH',
+            decimals: 18,
+            name: '1INCH Token',
           },
           {
             chainId: 1,
@@ -622,14 +619,14 @@ console.log(trade);
           {
             chainId: 1,
             contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
-            symbol: 'REP',
+            symbol: 'AAVE',
             decimals: 18,
-            name: 'Reputation',
+            name: 'Aave Token',
           },
         ],
-        routeText: 'FUN > USDT > WETH > REP',
+        routeText: '1INCH > USDT > WETH > AAVE',
         routePathArray: [
-          '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+          '0x111111111117dC0aa78b770fA6A738034120C302',
           '0xdAC17F958D2ee523a2206206994597C13D831ec7',
           '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
           '0x1985365e9f78359a9B6AD760e32412f4a445E862',
@@ -641,15 +638,15 @@ console.log(trade);
     chainId: 1,
     contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
     decimals: 18,
-    symbol: 'REP',
-    name: 'Reputation'
+    symbol: 'AAVE',
+    name: 'Aave Token'
   },
   fromToken: {
     chainId: 1,
-    contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-    decimals: 8,
-    symbol: 'FUN',
-    name: 'FunFair'
+    contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+    decimals: 18,
+    symbol: '1INCH',
+    name: '1INCH Token'
   },
   fromBalance: {
     hasEnough: true,
@@ -670,15 +667,15 @@ trade.destroy();
 #### ETH > ERC20
 
 ```ts
-import { UniswapPair, WETH, ChainId, TradeContext } from 'simple-uniswap-sdk';
+import { SushiswapPair, WETH, ChainId, TradeContext } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // use the WETH import from the lib, bare in mind you should use the
   // network which yours on, so if your on rinkeby you should use
   // WETH.RINKEBY
   fromTokenContractAddress: WETH.MAINNET().contractAddress,
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  toTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the ethereum address of the user using this part of the dApp
   ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   // you can pass in the provider url as well if you want
@@ -687,12 +684,12 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
 // the amount is the proper entered amount
 // so if they enter 10 pass in 10 and
 // it will work it all out for you
-const trade = await uniswapPairFactory.trade('10');
+const trade = await sushiswapPairFactory.trade('10');
 
 
 // subscribe to quote changes
@@ -718,24 +715,24 @@ console.log(trade);
     },
     {
       chainId: 1,
-      contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-      symbol: 'FUN',
-      decimals: 8,
-      name: 'FunFair',
+      contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+      symbol: '1INCH',
+      decimals: 18,
+      name: '1INCH Token',
     },
   ],
-  routeText: 'WETH > FUN',
+  routeText: 'WETH > 1INCH',
   routePath: [
     '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-    '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+    '0x111111111117dC0aa78b770fA6A738034120C302',
   ],
   hasEnoughAllowance: true,
   toToken: {
     chainId: 1,
-    contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-    symbol: 'FUN',
-    decimals: 8,
-    name: 'FunFair',
+    contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+    symbol: '1INCH',
+    decimals: 18,
+    name: '1INCH Token',
   },
   fromToken: {
     chainId: 1,
@@ -768,16 +765,16 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > FUN',
+      routeText: 'WETH > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -806,18 +803,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > WETH > FUN',
+      routeText: 'WETH > USDC > WETH > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -846,18 +843,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > WETH > FUN',
+      routeText: 'WETH > USDC > WETH > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -886,18 +883,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > WETH > FUN',
+      routeText: 'WETH > USDT > WETH > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -926,18 +923,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > WETH > FUN',
+      routeText: 'WETH > USDT > WETH > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -966,18 +963,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > WETH > FUN',
+      routeText: 'WETH > DAI > WETH > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1006,18 +1003,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > WETH > FUN',
+      routeText: 'WETH > DAI > WETH > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1039,17 +1036,17 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > FUN',
+      routeText: 'WETH > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1078,18 +1075,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > DAI > FUN',
+      routeText: 'WETH > USDC > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1118,18 +1115,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > DAI > FUN',
+      routeText: 'WETH > USDC > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1158,18 +1155,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > DAI > FUN',
+      routeText: 'WETH > USDC > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1198,18 +1195,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > DAI > FUN',
+      routeText: 'WETH > USDT > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1238,18 +1235,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > DAI > FUN',
+      routeText: 'WETH > USDT > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1278,18 +1275,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > DAI > FUN',
+      routeText: 'WETH > USDT > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1311,17 +1308,17 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > FUN',
+      routeText: 'WETH > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1350,18 +1347,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > USDC > FUN',
+      routeText: 'WETH > DAI > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1390,18 +1387,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > USDC > FUN',
+      routeText: 'WETH > DAI > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1430,18 +1427,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > USDC > FUN',
+      routeText: 'WETH > DAI > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1470,18 +1467,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > USDC > FUN',
+      routeText: 'WETH > USDT > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1510,18 +1507,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > USDC > FUN',
+      routeText: 'WETH > USDT > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1550,18 +1547,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > USDC > FUN',
+      routeText: 'WETH > USDT > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1590,18 +1587,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > COMP > DAI > FUN',
+      routeText: 'WETH > COMP > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1630,18 +1627,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > COMP > DAI > FUN',
+      routeText: 'WETH > COMP > DAI > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1670,18 +1667,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > COMP > USDC > FUN',
+      routeText: 'WETH > COMP > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1710,18 +1707,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > COMP > USDC > FUN',
+      routeText: 'WETH > COMP > USDC > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1750,18 +1747,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > USDT > FUN',
+      routeText: 'WETH > USDC > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1790,18 +1787,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > USDT > FUN',
+      routeText: 'WETH > DAI > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1830,18 +1827,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > USDT > FUN',
+      routeText: 'WETH > USDC > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1863,17 +1860,17 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDT > FUN',
+      routeText: 'WETH > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1902,18 +1899,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > COMP > USDT > FUN',
+      routeText: 'WETH > COMP > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1942,18 +1939,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > USDT > FUN',
+      routeText: 'WETH > DAI > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -1982,18 +1979,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > DAI > USDT > FUN',
+      routeText: 'WETH > DAI > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -2022,18 +2019,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > COMP > USDT > FUN',
+      routeText: 'WETH > COMP > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
     {
@@ -2062,18 +2059,18 @@ console.log(trade);
         },
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
       ],
-      routeText: 'WETH > USDC > USDT > FUN',
+      routeText: 'WETH > USDC > USDT > 1INCH',
       routePathArray: [
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
       ],
     },
   ],
@@ -2087,11 +2084,11 @@ trade.destroy();
 #### ERC20 > ETH
 
 ```ts
-import { UniswapPair, WETH, ChainId, TradeContext } from 'simple-uniswap-sdk';
+import { SushiswapPair, WETH, ChainId, TradeContext } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
-  fromTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  fromTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // use the WETH import from the lib, bare in mind you should use the
   // network which yours on, so if your on rinkeby you should use
   // WETH.RINKEBY
@@ -2104,12 +2101,12 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
 // the amount is the proper entered amount
 // so if they enter 10 pass in 10
 // it will work it all out for you
-const trade = await uniswapPairFactory.trade('10');
+const trade = await sushiswapPairFactory.trade('10');
 
 // subscribe to quote changes
 trade.quoteChanged$.subscribe((value: TradeContext) => {
@@ -2127,10 +2124,10 @@ console.log(trade);
   routePathTokenMap: [
     {
       chainId: 1,
-      contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-      symbol: 'FUN',
-      decimals: 8,
-      name: 'FunFair',
+      contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+      symbol: '1INCH',
+      decimals: 18,
+      name: '1INCH Token',
     },
     {
       chainId: 1,
@@ -2154,9 +2151,9 @@ console.log(trade);
       name: 'Wrapped Ether',
     },
   ],
-  routeText: 'FUN > DAI > COMP > WETH',
+  routeText: '1INCH > DAI > COMP > WETH',
   routePath: [
-    '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+    '0x111111111117dC0aa78b770fA6A738034120C302',
     '0x6B175474E89094C44Da98b954EedeAC495271d0F',
     '0xc00e94Cb662C3520282E6f5717214004A7f26888',
     '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2167,10 +2164,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2194,9 +2191,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > COMP > WETH',
+      routeText: '1INCH > DAI > COMP > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2207,10 +2204,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2234,9 +2231,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > COMP > WETH',
+      routeText: '1INCH > DAI > COMP > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2247,10 +2244,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2260,9 +2257,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > WETH',
+      routeText: '1INCH > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       ],
     },
@@ -2271,10 +2268,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2291,9 +2288,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > WETH',
+      routeText: '1INCH > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       ],
@@ -2303,10 +2300,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2330,49 +2327,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > USDC > WETH',
+      routeText: '1INCH > DAI > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-      ],
-    },
-    {
-      expectedConvertQuote: '0.000216165414503092',
-      routePathArrayTokenMap: [
-        {
-          chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-          decimals: 18,
-          symbol: 'DAI',
-          name: 'Dai Stablecoin',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-          decimals: 18,
-          symbol: 'USDC',
-          name: 'USD Coin',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-          symbol: 'WETH',
-          decimals: 18,
-          name: 'Wrapped Ether',
-        },
-      ],
-      routeText: 'FUN > DAI > USDC > WETH',
-      routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2383,10 +2340,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2410,9 +2367,49 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > USDC > WETH',
+      routeText: '1INCH > DAI > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
+        '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+        '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+        '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      ],
+    },
+    {
+      expectedConvertQuote: '0.000216165414503092',
+      routePathArrayTokenMap: [
+        {
+          chainId: 1,
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          decimals: 18,
+          symbol: 'DAI',
+          name: 'Dai Stablecoin',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          decimals: 18,
+          symbol: 'USDC',
+          name: 'USD Coin',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+          symbol: 'WETH',
+          decimals: 18,
+          name: 'Wrapped Ether',
+        },
+      ],
+      routeText: '1INCH > DAI > USDC > WETH',
+      routePathArray: [
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2423,10 +2420,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2450,9 +2447,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > USDT > WETH',
+      routeText: '1INCH > DAI > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2463,10 +2460,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2490,9 +2487,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > USDT > WETH',
+      routeText: '1INCH > DAI > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2503,10 +2500,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2530,9 +2527,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > DAI > USDT > WETH',
+      routeText: '1INCH > DAI > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2543,10 +2540,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2570,9 +2567,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > WETH > DAI > WETH',
+      routeText: '1INCH > WETH > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2583,10 +2580,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2610,9 +2607,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > WETH > DAI > WETH',
+      routeText: '1INCH > WETH > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2623,10 +2620,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2650,9 +2647,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > WETH > USDT > WETH',
+      routeText: '1INCH > WETH > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2663,10 +2660,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2690,9 +2687,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > WETH > USDT > WETH',
+      routeText: '1INCH > WETH > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2703,10 +2700,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2730,9 +2727,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > WETH > USDC > WETH',
+      routeText: '1INCH > WETH > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2743,10 +2740,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2770,9 +2767,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > WETH > USDC > WETH',
+      routeText: '1INCH > WETH > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2783,10 +2780,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2803,9 +2800,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > WETH',
+      routeText: '1INCH > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       ],
@@ -2815,10 +2812,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2842,49 +2839,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > USDT > WETH',
+      routeText: '1INCH > USDC > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-        '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-      ],
-    },
-    {
-      expectedConvertQuote: '0.000206879660311982',
-      routePathArrayTokenMap: [
-        {
-          chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-          decimals: 18,
-          symbol: 'USDC',
-          name: 'USD Coin',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-          decimals: 18,
-          symbol: 'USDT',
-          name: 'Tether USD',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-          symbol: 'WETH',
-          decimals: 18,
-          name: 'Wrapped Ether',
-        },
-      ],
-      routeText: 'FUN > USDC > USDT > WETH',
-      routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2895,10 +2852,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2922,9 +2879,49 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > USDT > WETH',
+      routeText: '1INCH > USDC > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
+        '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+        '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+        '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      ],
+    },
+    {
+      expectedConvertQuote: '0.000206879660311982',
+      routePathArrayTokenMap: [
+        {
+          chainId: 1,
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          decimals: 18,
+          symbol: 'USDC',
+          name: 'USD Coin',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+          decimals: 18,
+          symbol: 'USDT',
+          name: 'Tether USD',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+          symbol: 'WETH',
+          decimals: 18,
+          name: 'Wrapped Ether',
+        },
+      ],
+      routeText: '1INCH > USDC > USDT > WETH',
+      routePathArray: [
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2935,10 +2932,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -2962,9 +2959,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > DAI > WETH',
+      routeText: '1INCH > USDC > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -2975,10 +2972,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3002,9 +2999,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > DAI > WETH',
+      routeText: '1INCH > USDC > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3015,10 +3012,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3042,9 +3039,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > DAI > WETH',
+      routeText: '1INCH > USDC > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3055,10 +3052,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3082,9 +3079,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > COMP > WETH',
+      routeText: '1INCH > USDC > COMP > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3095,10 +3092,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3122,9 +3119,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDC > COMP > WETH',
+      routeText: '1INCH > USDC > COMP > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3135,10 +3132,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3162,9 +3159,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > COMP > WETH',
+      routeText: '1INCH > USDT > COMP > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3175,10 +3172,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3202,9 +3199,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > COMP > WETH',
+      routeText: '1INCH > USDT > COMP > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xc00e94Cb662C3520282E6f5717214004A7f26888',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3215,10 +3212,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3235,9 +3232,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > WETH',
+      routeText: '1INCH > USDT > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       ],
@@ -3247,10 +3244,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3274,49 +3271,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > DAI > WETH',
+      routeText: '1INCH > USDT > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-        '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-        '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-      ],
-    },
-    {
-      expectedConvertQuote: '0.000000004406314787',
-      routePathArrayTokenMap: [
-        {
-          chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-          decimals: 18,
-          symbol: 'USDT',
-          name: 'Tether USD',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-          decimals: 18,
-          symbol: 'DAI',
-          name: 'Dai Stablecoin',
-        },
-        {
-          chainId: 1,
-          contractAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-          symbol: 'WETH',
-          decimals: 18,
-          name: 'Wrapped Ether',
-        },
-      ],
-      routeText: 'FUN > USDT > DAI > WETH',
-      routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3327,10 +3284,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3354,9 +3311,49 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > DAI > WETH',
+      routeText: '1INCH > USDT > DAI > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
+        '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+        '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+        '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+      ],
+    },
+    {
+      expectedConvertQuote: '0.000000004406314787',
+      routePathArrayTokenMap: [
+        {
+          chainId: 1,
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+          decimals: 18,
+          symbol: 'USDT',
+          name: 'Tether USD',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          decimals: 18,
+          symbol: 'DAI',
+          name: 'Dai Stablecoin',
+        },
+        {
+          chainId: 1,
+          contractAddress: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+          symbol: 'WETH',
+          decimals: 18,
+          name: 'Wrapped Ether',
+        },
+      ],
+      routeText: '1INCH > USDT > DAI > WETH',
+      routePathArray: [
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0x6B175474E89094C44Da98b954EedeAC495271d0F',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3367,10 +3364,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3394,9 +3391,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > USDC > WETH',
+      routeText: '1INCH > USDT > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3407,10 +3404,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3434,9 +3431,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > USDC > WETH',
+      routeText: '1INCH > USDT > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3447,10 +3444,10 @@ console.log(trade);
       routePathArrayTokenMap: [
         {
           chainId: 1,
-          contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-          symbol: 'FUN',
-          decimals: 8,
-          name: 'FunFair',
+          contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+          symbol: '1INCH',
+          decimals: 18,
+          name: '1INCH Token',
         },
         {
           chainId: 1,
@@ -3474,9 +3471,9 @@ console.log(trade);
           name: 'Wrapped Ether',
         },
       ],
-      routeText: 'FUN > USDT > USDC > WETH',
+      routeText: '1INCH > USDT > USDC > WETH',
       routePathArray: [
-        '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+        '0x111111111117dC0aa78b770fA6A738034120C302',
         '0xdAC17F958D2ee523a2206206994597C13D831ec7',
         '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
         '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
@@ -3493,10 +3490,10 @@ console.log(trade);
   },
   fromToken: {
     chainId: 1,
-    contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-    symbol: 'FUN',
-    decimals: 8,
-    name: 'FunFair',
+    contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+    symbol: '1INCH',
+    decimals: 18,
+    name: '1INCH Token',
   },
   fromBalance: {
     hasEnough: true,
@@ -3526,13 +3523,13 @@ async hasGotEnoughAllowance(amount: string): Promise<boolean>
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
   fromTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  toTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the ethereum address of the user using this part of the dApp
   ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   // you can pass in the provider url as well if you want
@@ -3541,9 +3538,9 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const hasGotEnoughAllowance = await uniswapPairFactory.hasGotEnoughAllowance(
+const hasGotEnoughAllowance = await sushiswapPairFactory.hasGotEnoughAllowance(
   '10'
 );
 console.log(hasGotEnoughAllowance);
@@ -3561,13 +3558,13 @@ async allowance(): Promise<string>
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
   fromTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  toTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the ethereum address of the user using this part of the dApp
   ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   // you can pass in the provider url as well if you want
@@ -3576,9 +3573,9 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const allowance = await uniswapPairFactory.allowance();
+const allowance = await sushiswapPairFactory.allowance();
 console.log(allowance);
 // '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
 ```
@@ -3603,20 +3600,20 @@ export interface Transaction {
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
 // the contract address of the token you want to convert FROM
 const fromTokenContractAddress = '0x1985365e9f78359a9B6AD760e32412f4a445E862';
 // the contract address of the token you want to convert TO
-const toTokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const toTokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 // the ethereum address of the user using this part of the dApp
 const ethereumAddress = '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
   fromTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  toTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the ethereum address of the user using this part of the dApp
   ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   // you can pass in the provider url as well if you want
@@ -3625,12 +3622,12 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const transaction = await uniswapPairFactory.generateApproveMaxAllowanceData();
+const transaction = await sushiswapPairFactory.generateApproveMaxAllowanceData();
 console.log(transaction);
 {
-  to: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  to: '0x111111111117dC0aa78b770fA6A738034120C302',
   from: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   data:
    '0x095ea7b30000000000000000000000007a250d5630b4cf539739df2c5dacb4c659f2488dffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
@@ -3649,13 +3646,13 @@ async findBestRoute(amountToTrade: string): Promise<RouteQuote>
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
   fromTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  toTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the ethereum address of the user using this part of the dApp
   ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   // you can pass in the provider url as well if you want
@@ -3664,19 +3661,19 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const bestRoute = await uniswapPairFactory.findBestRoute('10');
+const bestRoute = await sushiswapPairFactory.findBestRoute('10');
 console.log(bestRoute);
 {
   expectedConvertQuote: "0.014634280991384697",
   routePathArrayTokenMap: [
       {
         chainId: 1,
-        contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        decimals: 8,
-        symbol: 'FUN',
-        name: 'FunFair'
+        contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+        decimals: 18,
+        symbol: '1INCH',
+        name: '1INCH Token'
       },
       {
         chainId: 1,
@@ -3695,12 +3692,12 @@ console.log(bestRoute);
      { chainId: 1,
        contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
        decimals: 18,
-       symbol: 'REP',
-       name: 'Reputation'
+       symbol: 'AAVE',
+       name: 'Aave Token'
       }
     ],
-  routeText: 'FUN > WETH > REP',
-  routePathArray: ['0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b', '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2' '0x1985365e9f78359a9B6AD760e32412f4a445E862']
+  routeText: '1INCH > WETH > AAVE',
+  routePathArray: ['0x111111111117dC0aa78b770fA6A738034120C302', '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2' '0x1985365e9f78359a9B6AD760e32412f4a445E862']
 }
 ```
 
@@ -3715,11 +3712,11 @@ async findAllPossibleRoutesWithQuote(amountToTrade: string): Promise<RouteQuote[
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
-  fromTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  fromTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the contract address of the token you want to convert TO
   toTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the ethereum address of the user using this part of the dApp
@@ -3730,9 +3727,9 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const allPossibleRoutes = await uniswapPairFactory.findAllPossibleRoutesWithQuote(
+const allPossibleRoutes = await sushiswapPairFactory.findAllPossibleRoutesWithQuote(
   '10'
 );
 console.log(allPossibleRoutes);
@@ -3742,10 +3739,10 @@ console.log(allPossibleRoutes);
     routePathArrayTokenMap: [
       {
         chainId: 1,
-        contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        decimals: 8,
-        symbol: 'FUN',
-        name: 'FunFair',
+        contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+        decimals: 18,
+        symbol: '1INCH',
+        name: '1INCH Token',
       },
       {
         chainId: 1,
@@ -3765,13 +3762,13 @@ console.log(allPossibleRoutes);
         chainId: 1,
         contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
         decimals: 18,
-        symbol: 'REP',
-        name: 'Reputation',
+        symbol: 'AAVE',
+        name: 'Aave Token',
       },
     ],
-    routeText: 'FUN > DAI > WETH > REP',
+    routeText: '1INCH > DAI > WETH > AAVE',
     routePathArray: [
-      '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+      '0x111111111117dC0aa78b770fA6A738034120C302',
       '0x6B175474E89094C44Da98b954EedeAC495271d0F',
       '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       '0x1985365e9f78359a9B6AD760e32412f4a445E862',
@@ -3782,10 +3779,10 @@ console.log(allPossibleRoutes);
     routePathArrayTokenMap: [
       {
         chainId: 1,
-        contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        decimals: 8,
-        symbol: 'FUN',
-        name: 'FunFair',
+        contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+        decimals: 18,
+        symbol: '1INCH',
+        name: '1INCH Token',
       },
       {
         chainId: 1,
@@ -3798,13 +3795,13 @@ console.log(allPossibleRoutes);
         chainId: 1,
         contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
         decimals: 18,
-        symbol: 'REP',
-        name: 'Reputation',
+        symbol: 'AAVE',
+        name: 'Aave Token',
       },
     ],
-    routeText: 'FUN > WETH > REP',
+    routeText: '1INCH > WETH > AAVE',
     routePathArray: [
-      '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+      '0x111111111117dC0aa78b770fA6A738034120C302',
       '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       '0x1985365e9f78359a9B6AD760e32412f4a445E862',
     ],
@@ -3814,10 +3811,10 @@ console.log(allPossibleRoutes);
     routePathArrayTokenMap: [
       {
         chainId: 1,
-        contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        decimals: 8,
-        symbol: 'FUN',
-        name: 'FunFair',
+        contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+        decimals: 18,
+        symbol: '1INCH',
+        name: '1INCH Token',
       },
       {
         chainId: 1,
@@ -3837,13 +3834,13 @@ console.log(allPossibleRoutes);
         chainId: 1,
         contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
         decimals: 18,
-        symbol: 'REP',
-        name: 'Reputation',
+        symbol: 'AAVE',
+        name: 'Aave Token',
       },
     ],
-    routeText: 'FUN > USDC > WETH > REP',
+    routeText: '1INCH > USDC > WETH > AAVE',
     routePathArray: [
-      '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+      '0x111111111117dC0aa78b770fA6A738034120C302',
       '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
       '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       '0x1985365e9f78359a9B6AD760e32412f4a445E862',
@@ -3854,10 +3851,10 @@ console.log(allPossibleRoutes);
     routePathArrayTokenMap: [
       {
         chainId: 1,
-        contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-        decimals: 8,
-        symbol: 'FUN',
-        name: 'FunFair',
+        contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+        decimals: 18,
+        symbol: '1INCH',
+        name: '1INCH Token',
       },
       {
         chainId: 1,
@@ -3877,13 +3874,13 @@ console.log(allPossibleRoutes);
         chainId: 1,
         contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
         decimals: 18,
-        symbol: 'REP',
-        name: 'Reputation',
+        symbol: 'AAVE',
+        name: 'Aave Token',
       },
     ],
-    routeText: 'FUN > USDT > WETH > REP',
+    routeText: '1INCH > USDT > WETH > AAVE',
     routePathArray: [
-      '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+      '0x111111111117dC0aa78b770fA6A738034120C302',
       '0xdAC17F958D2ee523a2206206994597C13D831ec7',
       '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
       '0x1985365e9f78359a9B6AD760e32412f4a445E862',
@@ -3913,13 +3910,13 @@ export interface Token {
 #### Usage
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapPair = new UniswapPair({
+const sushiswapPair = new SushiswapPair({
   // the contract address of the token you want to convert FROM
   fromTokenContractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
   // the contract address of the token you want to convert TO
-  toTokenContractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  toTokenContractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
   // the ethereum address of the user using this part of the dApp
   ethereumAddress: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
   // you can pass in the provider url as well if you want
@@ -3928,18 +3925,18 @@ const uniswapPair = new UniswapPair({
 });
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-const allRoutes = await uniswapPairFactory.findAllPossibleRoutes();
+const allRoutes = await sushiswapPairFactory.findAllPossibleRoutes();
 console.log(allRoutes);
 [
   [
     {
       chainId: 1,
-      contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-      decimals: 8,
-      symbol: 'FUN',
-      name: 'FunFair',
+      contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+      decimals: 18,
+      symbol: '1INCH',
+      name: '1INCH Token',
     },
     {
       chainId: 1,
@@ -3952,17 +3949,17 @@ console.log(allRoutes);
       chainId: 1,
       contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
       decimals: 18,
-      symbol: 'REP',
-      name: 'Reputation',
+      symbol: 'AAVE',
+      name: 'Aave Token',
     },
   ],
   [
     {
       chainId: 1,
-      contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-      decimals: 8,
-      symbol: 'FUN',
-      name: 'FunFair',
+      contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+      decimals: 18,
+      symbol: '1INCH',
+      name: '1INCH Token',
     },
     {
       chainId: 1,
@@ -3982,17 +3979,17 @@ console.log(allRoutes);
       chainId: 1,
       contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
       decimals: 18,
-      symbol: 'REP',
-      name: 'Reputation',
+      symbol: 'AAVE',
+      name: 'Aave Token',
     },
   ],
   [
     {
       chainId: 1,
-      contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-      decimals: 8,
-      symbol: 'FUN',
-      name: 'FunFair',
+      contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+      decimals: 18,
+      symbol: '1INCH',
+      name: '1INCH Token',
     },
     {
       chainId: 1,
@@ -4012,17 +4009,17 @@ console.log(allRoutes);
       chainId: 1,
       contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
       decimals: 18,
-      symbol: 'REP',
-      name: 'Reputation',
+      symbol: 'AAVE',
+      name: 'Aave Token',
     },
   ],
   [
     {
       chainId: 1,
-      contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-      decimals: 8,
-      symbol: 'FUN',
-      name: 'FunFair',
+      contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+      decimals: 18,
+      symbol: '1INCH',
+      name: '1INCH Token',
     },
     {
       chainId: 1,
@@ -4042,8 +4039,8 @@ console.log(allRoutes);
       chainId: 1,
       contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
       decimals: 18,
-      symbol: 'REP',
-      name: 'Reputation',
+      symbol: 'AAVE',
+      name: 'Aave Token',
     },
   ],
 ];
@@ -4074,9 +4071,9 @@ export interface Token {
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
-const tokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const tokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 
 const tokenFactoryPublic = new TokenFactoryPublic(
   toTokenContractAddress,
@@ -4087,16 +4084,16 @@ const token = await tokenFactoryPublic.getToken();
 console.log(token);
 {
   chainId: 1,
-  contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-  decimals: 8,
-  symbol: 'FUN',
-  name: 'FunFair',
+  contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+  decimals: 18,
+  symbol: '1INCH',
+  name: '1INCH Token',
 },
 ```
 
 ### allowance
 
-This method will return the allowance the user has allowed to be able to be moved on his behalf. Uniswap needs this allowance to be higher then the amount swapping for it to be able to move the tokens for the user. This is always returned as a hex and not formatted for you.
+This method will return the allowance the user has allowed to be able to be moved on his behalf. Sushiswap needs this allowance to be higher then the amount swapping for it to be able to move the tokens for the user. This is always returned as a hex and not formatted for you.
 
 ```ts
 async allowance(ethereumAddress: string): Promise<string>
@@ -4105,9 +4102,9 @@ async allowance(ethereumAddress: string): Promise<string>
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
-const tokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const tokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 
 const tokenFactoryPublic = new TokenFactoryPublic(
   toTokenContractAddress,
@@ -4132,9 +4129,9 @@ async balanceOf(ethereumAddress: string): Promise<string>
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
-const tokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const tokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 
 const tokenFactoryPublic = new TokenFactoryPublic(
   toTokenContractAddress,
@@ -4159,9 +4156,9 @@ async totalSupply(): Promise<string>
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
-const tokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const tokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 
 const tokenFactoryPublic = new TokenFactoryPublic(
   toTokenContractAddress,
@@ -4186,9 +4183,9 @@ generateApproveAllowanceData(spender: string, value: string): string
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
-const tokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const tokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 
 const tokenFactoryPublic = new TokenFactoryPublic(
   tokenContractAddress,
@@ -4230,9 +4227,9 @@ export interface AllowanceAndBalanceOf {
 #### Usage
 
 ```ts
-import { TokenFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { TokenFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
-const tokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const tokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 
 const tokenFactoryPublic = new TokenFactoryPublic(
   tokenContractAddress,
@@ -4278,7 +4275,7 @@ export interface Token {
 #### Usage
 
 ```ts
-import { TokensFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { TokensFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
 const tokensFactoryPublic = new TokensFactoryPublic(
   ChainId.MAINNET
@@ -4287,7 +4284,7 @@ const tokensFactoryPublic = new TokensFactoryPublic(
 );
 
 const tokens = await tokensFactoryPublic.getTokens([
-  '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
+  '0x111111111117dC0aa78b770fA6A738034120C302',
   '0x1985365e9f78359a9B6AD760e32412f4a445E862',
 ]);
 console.log(tokens);
@@ -4295,26 +4292,26 @@ console.log(tokens);
   {
     chainId: 1,
     contractAddress: '0x1985365e9f78359a9B6AD760e32412f4a445E862',
-    symbol: 'REP',
+    symbol: 'AAVE',
     decimals: 18,
-    name: 'Reputation',
+    name: 'Aave Token',
   },
   {
     chainId: 1,
-    contractAddress: '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b',
-    symbol: 'FUN',
-    decimals: 8,
-    name: 'FunFair',
+    contractAddress: '0x111111111117dC0aa78b770fA6A738034120C302',
+    symbol: '1INCH',
+    decimals: 18,
+    name: '1INCH Token',
   },
 ];
 ```
 
 ### Contract calls
 
-Along side this we also expose in here the uniswap pair contract calls. Any methods which are state changing will return you the data and you will have to send it. Only use these if your doing any bespoke stuff with pairs. The `UniswapPairContractFactoryPublic` is also exposed in the package which you can pass it a chainId or a providerUrl
+Along side this we also expose in here the sushiswap pair contract calls. Any methods which are state changing will return you the data and you will have to send it. Only use these if your doing any bespoke stuff with pairs. The `SushiswapPairContractFactoryPublic` is also exposed in the package which you can pass it a chainId or a providerUrl
 
 ```ts
-export interface UniswapPair {
+export interface SushiswapPair {
   async allPairs(
     parameter0: BigNumberish,
   ): Promise<string>;
@@ -4349,19 +4346,19 @@ export interface UniswapPair {
 
 #### Usage
 
-#### In UniswapPairFactory
+#### In SushiswapPairFactory
 
 ```ts
-import { UniswapPair, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapPair, ChainId } from 'simple-sushiswap-sdk';
 
 // the contract address of the token you want to convert FROM
 const fromTokenContractAddress = '0x1985365e9f78359a9B6AD760e32412f4a445E862';
 // the contract address of the token you want to convert TO
-const toTokenContractAddress = '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E711b';
+const toTokenContractAddress = '0x111111111117dC0aa78b770fA6A738034120C302';
 // the ethereum address of the user using this part of the dApp
 const ethereumAddress = '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9';
 
-const uniswapPair = new UniswapPair(
+const sushiswapPair = new SushiswapPair(
   toTokenContractAddress,
   fromTokenContractAddress,
   ethereumAddress,
@@ -4371,28 +4368,31 @@ const uniswapPair = new UniswapPair(
 );
 
 // now to create the factory you just do
-const uniswapPairFactory = await uniswapPair.createFactory();
+const sushiswapPairFactory = await sushiswapPair.createFactory();
 
-// contract calls our here, this is only for the uniswap pair contract https://etherscan.io/address/0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f#code
-uniswapPairFactory.contractCalls;
+// contract calls our here, this is only for the sushiswap pair contract https://etherscan.io/address/0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac#code
+sushiswapPairFactory.contractCalls;
 ```
 
-#### Using UniswapPairContractFactoryPublic on its own
+#### Using SushiswapPairContractFactoryPublic on its own
 
 ```ts
-import { UniswapPairContractFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import {
+  SushiswapPairContractFactoryPublic,
+  ChainId,
+} from 'simple-sushiswap-sdk';
 
-const uniswapPairContractFactoryPublic = new UniswapPairContractFactoryPublic(
+const sushiswapPairContractFactoryPublic = new SushiswapPairContractFactoryPublic(
   ChainId.MAINNET
   // you can pass in the provider url as well if you want
   // providerUrl: YOUR_PROVIDER_URL,
 );
 
-// contract calls our here, this is only for the uniswap pair contract https://etherscan.io/address/0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f#code
-uniswapPairContractFactoryPublic;
+// contract calls our here, this is only for the sushiswap pair contract https://etherscan.io/address/0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac#code
+sushiswapPairContractFactoryPublic;
 ```
 
-### UniswapContractFactoryPublic
+### SushiswapContractFactoryPublic
 
 ```ts
 async allPairs(parameter0: BigNumberish): Promise<string>;
@@ -4408,19 +4408,19 @@ async getPair(token0: string, token1: string): Promise<string>;
 ### Usage
 
 ```ts
-import { UniswapContractFactoryPublic, ChainId } from 'simple-uniswap-sdk';
+import { SushiswapContractFactoryPublic, ChainId } from 'simple-sushiswap-sdk';
 
-const uniswapContractFactoryPublic = new UniswapContractFactoryPublic(
+const sushiswapContractFactoryPublic = new SushiswapContractFactoryPublic(
   ChainId.MAINNET
   // you can pass in the provider url as well if you want
   // providerUrl: YOUR_PROVIDER_URL,
 );
 
-// contract calls our here https://etherscan.io/address/0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f#code
-uniswapContractFactoryPublic;
+// contract calls our here https://etherscan.io/address/0xC0AEe478e3658e2610c5F7A4A2E1777cE9e4f2Ac#code
+sushiswapContractFactoryPublic;
 ```
 
-### UniswapRouterContractFactoryPublic
+### SushiswapRouterContractFactoryPublic
 
 ```ts
 // state changing
@@ -4616,18 +4616,18 @@ swapExactTokensForTokensSupportingFeeOnTransferTokens(
 
 ```ts
 import {
-  UniswapRouterContractFactoryPublic,
+  SushiswapRouterContractFactoryPublic,
   ChainId,
-} from 'simple-uniswap-sdk';
+} from 'simple-sushiswap-sdk';
 
-const uniswapRouterContractFactoryPublic = new UniswapRouterContractFactoryPublic(
+const sushiswapRouterContractFactoryPublic = new SushiswapRouterContractFactoryPublic(
   ChainId.MAINNET
   // you can pass in the provider url as well if you want
   // providerUrl: YOUR_PROVIDER_URL,
 );
 
-// contract calls our here https://etherscan.io/address/0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D#code
-uniswapRouterContractFactoryPublic;
+// contract calls our here https://etherscan.io/address/0xd9e1cE17f2641f24aE83637ab66a2cca9C378B9F#code
+sushiswapRouterContractFactoryPublic;
 ```
 
 ## Tests
@@ -4644,7 +4644,7 @@ Ran all test suites.
 
 Please raise any issues in the below link.
 
-https://github.com/joshstevens19/uniswap-sdk/issues
+https://github.com/joshstevens19/simple-sushiswap-sdk
 
 ## Thanks
 

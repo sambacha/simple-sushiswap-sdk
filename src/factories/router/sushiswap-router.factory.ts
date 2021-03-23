@@ -7,7 +7,7 @@ import {
 } from 'ethereum-multicall';
 import { ContractContext } from '../../common/contract-context';
 import { ErrorCodes } from '../../common/errors/error-codes';
-import { UniswapError } from '../../common/errors/uniswap-error';
+import { SushiswapError } from '../../common/errors/sushiswap-error';
 import { COMP } from '../../common/tokens/comp';
 import { DAI } from '../../common/tokens/dai';
 import { USDC } from '../../common/tokens/usdc';
@@ -26,7 +26,7 @@ import { BestRouteQuotes } from './models/best-route-quotes';
 import { RouteQuote } from './models/route-quote';
 import { TokenRoutes } from './models/token-routes';
 
-export class UniswapRouterFactory {
+export class SushiswapRouterFactory {
   private _multicall = new Multicall({
     ethersProvider: this._ethersProvider.provider,
   });
@@ -62,7 +62,7 @@ export class UniswapRouterFactory {
     }
 
     const contractCallContext: ContractCallContext = {
-      reference: 'uniswap-pairs',
+      reference: 'sushiswap-pairs',
       contractAddress: ContractContext.pairAddress,
       abi: ContractContext.pairAbi,
       calls: [],
@@ -154,7 +154,7 @@ export class UniswapRouterFactory {
     const routes = await this.getAllPossibleRoutes();
 
     const contractCallContext: ContractCallContext<Token[][]> = {
-      reference: 'uniswap-route-quotes',
+      reference: 'sushiswap-route-quotes',
       contractAddress: ContractContext.routerAddress,
       abi: ContractContext.routerAbi,
       calls: [],
@@ -192,7 +192,7 @@ export class UniswapRouterFactory {
   ): Promise<BestRouteQuotes> {
     const allRoutes = await this.getAllPossibleRoutesWithQuotes(amountToTrade);
     if (allRoutes.length === 0) {
-      throw new UniswapError(
+      throw new SushiswapError(
         `No routes found for ${this._fromToken.contractAddress} > ${this._toToken.contractAddress}`,
         ErrorCodes.noRoutesFound
       );
@@ -353,7 +353,6 @@ export class UniswapRouterFactory {
 
   /**
    * Build up route quotes from results
-   * @param uniswapFactoryContext The uniswap factory context
    * @param contractCallReturnContext The contract call return context
    */
   private buildRouteQuotesFromResults(
@@ -383,7 +382,7 @@ export class UniswapRouterFactory {
             result.push(this.buildRouteQuoteForErc20ToErc20(callReturnContext));
             break;
           default:
-            throw new UniswapError(
+            throw new SushiswapError(
               `${tradePath} not found`,
               ErrorCodes.tradePathIsNotSupported
             );
@@ -484,7 +483,6 @@ export class UniswapRouterFactory {
   /**
    * Format amount to trade into callable formats
    * @param amountToTrade The amount to trade
-   * @param uniswapFactoryContext The uniswap factory context
    */
   private formatAmountToTrade(amountToTrade: BigNumber): string {
     switch (this.tradePath()) {
@@ -495,7 +493,7 @@ export class UniswapRouterFactory {
       case TradePath.erc20ToErc20:
         return hexlify(amountToTrade.shiftedBy(this._fromToken.decimals));
       default:
-        throw new UniswapError(
+        throw new SushiswapError(
           `Internal trade path ${this.tradePath()} is not supported`,
           ErrorCodes.tradePathIsNotSupported
         );
