@@ -16,7 +16,7 @@ describe('SushiswapRouterFactory', () => {
       fromToken,
       toToken,
       false,
-      ethersProvider
+      ethersProvider,
     );
 
     describe('getAllPossibleRoutes', () => {
@@ -31,7 +31,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.getAllPossibleRoutes();
@@ -42,7 +42,7 @@ describe('SushiswapRouterFactory', () => {
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
         const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1)
+          new BigNumber(1),
         );
         expect(result.length > 0).toEqual(true);
       });
@@ -52,11 +52,11 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1)
+          new BigNumber(1),
         );
         expect(result.length === 0).toEqual(true);
       });
@@ -65,7 +65,7 @@ describe('SushiswapRouterFactory', () => {
     describe('findBestRoute', () => {
       it('should find best route', async () => {
         const result = await sushiswapRouterFactory.findBestRoute(
-          new BigNumber(100)
+          new BigNumber(100),
         );
         expect(result.bestRouteQuote.routeText).toEqual('1INCH > WETH > AAVE');
       });
@@ -75,16 +75,16 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         await expect(
-          factory.findBestRoute(new BigNumber(100))
+          factory.findBestRoute(new BigNumber(100)),
         ).rejects.toThrowError(
           new SushiswapError(
             `No routes found for ${fromToken.contractAddress} > ${toToken.contractAddress}`,
-            ErrorCodes.noRoutesFound
-          )
+            ErrorCodes.noRoutesFound,
+          ),
         );
       });
     });
@@ -98,7 +98,7 @@ describe('SushiswapRouterFactory', () => {
       fromToken,
       toToken,
       false,
-      ethersProvider
+      ethersProvider,
     );
 
     describe('getAllPossibleRoutes', () => {
@@ -113,7 +113,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.getAllPossibleRoutes();
@@ -127,7 +127,7 @@ describe('SushiswapRouterFactory', () => {
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
         const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1)
+          new BigNumber(1),
         );
         expect(result.length > 0).toEqual(true);
       });
@@ -137,14 +137,14 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1)
+          new BigNumber(1),
         );
         expect(
-          result.filter((c) => c.routePathArray.length > 2).length > 0
+          result.filter((c) => c.routePathArray.length > 2).length > 0,
         ).toEqual(false);
       });
     });
@@ -152,7 +152,7 @@ describe('SushiswapRouterFactory', () => {
     describe('findBestRoute', () => {
       it('should find best route', async () => {
         const result = await sushiswapRouterFactory.findBestRoute(
-          new BigNumber(100)
+          new BigNumber(100),
         );
         expect(result.bestRouteQuote.routeText).toEqual('1INCH > WETH');
       });
@@ -162,7 +162,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.findBestRoute(new BigNumber(100));
@@ -170,7 +170,7 @@ describe('SushiswapRouterFactory', () => {
         expect(result.bestRouteQuote.routeText).toEqual('1INCH > WETH');
         expect(
           result.triedRoutesQuote.filter((c) => c.routePathArray.length > 2)
-            .length > 0
+            .length > 0,
         ).toEqual(false);
       });
     });
@@ -184,7 +184,7 @@ describe('SushiswapRouterFactory', () => {
       fromToken,
       toToken,
       false,
-      ethersProvider
+      ethersProvider,
     );
 
     describe('getAllPossibleRoutes', () => {
@@ -199,7 +199,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.getAllPossibleRoutes();
@@ -213,7 +213,7 @@ describe('SushiswapRouterFactory', () => {
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
         const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1)
+          new BigNumber(1),
         );
         expect(result.length > 0).toEqual(true);
       });
@@ -223,14 +223,14 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1)
+          new BigNumber(1),
         );
         expect(
-          result.filter((c) => c.routePathArray.length > 2).length > 0
+          result.filter((c) => c.routePathArray.length > 2).length > 0,
         ).toEqual(false);
       });
     });
@@ -238,7 +238,7 @@ describe('SushiswapRouterFactory', () => {
     describe('findBestRoute', () => {
       it('should find best route', async () => {
         const result = await sushiswapRouterFactory.findBestRoute(
-          new BigNumber(100)
+          new BigNumber(100),
         );
         expect(result.bestRouteQuote.routeText).toEqual('WETH > 1INCH');
       });
@@ -248,7 +248,7 @@ describe('SushiswapRouterFactory', () => {
           fromToken,
           toToken,
           true,
-          ethersProvider
+          ethersProvider,
         );
 
         const result = await factory.findBestRoute(new BigNumber(100));
@@ -256,7 +256,7 @@ describe('SushiswapRouterFactory', () => {
         expect(result.bestRouteQuote.routeText).toEqual('WETH > 1INCH');
         expect(
           result.triedRoutesQuote.filter((c) => c.routePathArray.length > 2)
-            .length > 0
+            .length > 0,
         ).toEqual(false);
       });
     });

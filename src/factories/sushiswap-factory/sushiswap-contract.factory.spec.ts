@@ -22,10 +22,10 @@ describe('SushiswapContractFactory', () => {
   it('createPair', () => {
     const result = sushiswapContractFactory.createPair(
       MOCK1INCH().contractAddress,
-      WETH.MAINNET().contractAddress
+      WETH.MAINNET().contractAddress,
     );
     expect(result).toEqual(
-      '0xc9c65396000000000000000000000000111111111117dc0aa78b770fa6a738034120c302000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2'
+      '0xc9c65396000000000000000000000000111111111117dc0aa78b770fa6a738034120c302000000000000000000000000c02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
     );
   });
 
@@ -42,26 +42,26 @@ describe('SushiswapContractFactory', () => {
   it('getPair', async () => {
     const result = await sushiswapContractFactory.getPair(
       WETH.MAINNET().contractAddress,
-      MOCK1INCH().contractAddress
+      MOCK1INCH().contractAddress,
     );
     expect(result).toEqual('0x86f518368E0d49d5916e2BD9EB162E9952b7b04d');
   });
 
   it('setFeeTo', async () => {
     const result = await sushiswapContractFactory.setFeeTo(
-      '0x05B0c1D8839eF3a989B33B6b63D3aA96cB7Ec142'
+      '0x05B0c1D8839eF3a989B33B6b63D3aA96cB7Ec142',
     );
     expect(result).toEqual(
-      '0xf46901ed00000000000000000000000005b0c1d8839ef3a989b33b6b63d3aa96cb7ec142'
+      '0xf46901ed00000000000000000000000005b0c1d8839ef3a989b33b6b63d3aa96cb7ec142',
     );
   });
 
   it('setFeeToSetter', async () => {
     const result = await sushiswapContractFactory.setFeeToSetter(
-      '0x05B0c1D8839eF3a989B33B6b63D3aA96cB7Ec142'
+      '0x05B0c1D8839eF3a989B33B6b63D3aA96cB7Ec142',
     );
     expect(result).toEqual(
-      '0xa2e74af600000000000000000000000005b0c1d8839ef3a989b33b6b63d3aa96cb7ec142'
+      '0xa2e74af600000000000000000000000005b0c1d8839ef3a989b33b6b63d3aa96cb7ec142',
     );
   });
 });

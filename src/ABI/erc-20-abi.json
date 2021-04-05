@@ -1,18 +1,22 @@
-[{
+[
+  {
     "constant": true,
     "inputs": [],
     "name": "name",
-    "outputs": [{
-      "name": "",
-      "type": "string"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": false,
-    "inputs": [{
+    "inputs": [
+      {
         "name": "_spender",
         "type": "address"
       },
@@ -22,10 +26,12 @@
       }
     ],
     "name": "approve",
-    "outputs": [{
-      "name": "",
-      "type": "bool"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -34,17 +40,20 @@
     "constant": true,
     "inputs": [],
     "name": "totalSupply",
-    "outputs": [{
-      "name": "",
-      "type": "uint256"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": false,
-    "inputs": [{
+    "inputs": [
+      {
         "name": "_from",
         "type": "address"
       },
@@ -58,10 +67,12 @@
       }
     ],
     "name": "transferFrom",
-    "outputs": [{
-      "name": "",
-      "type": "bool"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
@@ -70,25 +81,31 @@
     "constant": true,
     "inputs": [],
     "name": "decimals",
-    "outputs": [{
-      "name": "",
-      "type": "uint8"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": true,
-    "inputs": [{
-      "name": "_owner",
-      "type": "address"
-    }],
+    "inputs": [
+      {
+        "name": "_owner",
+        "type": "address"
+      }
+    ],
     "name": "balanceOf",
-    "outputs": [{
-      "name": "balance",
-      "type": "uint256"
-    }],
+    "outputs": [
+      {
+        "name": "balance",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -97,17 +114,20 @@
     "constant": true,
     "inputs": [],
     "name": "symbol",
-    "outputs": [{
-      "name": "",
-      "type": "string"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
     "constant": false,
-    "inputs": [{
+    "inputs": [
+      {
         "name": "_to",
         "type": "address"
       },
@@ -117,17 +137,20 @@
       }
     ],
     "name": "transfer",
-    "outputs": [{
-      "name": "",
-      "type": "bool"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
     "constant": true,
-    "inputs": [{
+    "inputs": [
+      {
         "name": "_owner",
         "type": "address"
       },
@@ -137,10 +160,12 @@
       }
     ],
     "name": "allowance",
-    "outputs": [{
-      "name": "",
-      "type": "uint256"
-    }],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
     "payable": false,
     "stateMutability": "view",
     "type": "function"
@@ -152,7 +177,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [{
+    "inputs": [
+      {
         "indexed": true,
         "name": "owner",
         "type": "address"
@@ -173,7 +199,8 @@
   },
   {
     "anonymous": false,
-    "inputs": [{
+    "inputs": [
+      {
         "indexed": true,
         "name": "from",
         "type": "address"

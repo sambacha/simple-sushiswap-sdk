@@ -16,7 +16,7 @@ import { SushiswapPairFactoryContext } from './models/sushiswap-pair-factory-con
 describe('SushiswapPairFactory', () => {
   const ethersProvider = new EthersProvider(
     ChainId.MAINNET,
-    MOCK_PROVIDER_URL()
+    MOCK_PROVIDER_URL(),
   );
   describe('erc20 > erc20', () => {
     const sushiswapPairFactoryContext: SushiswapPairFactoryContext = {
@@ -28,18 +28,18 @@ describe('SushiswapPairFactory', () => {
     };
 
     const sushiswapPairFactory = new SushiswapPairFactory(
-      sushiswapPairFactoryContext
+      sushiswapPairFactoryContext,
     );
 
     it('`toToken` should retun correctly', () => {
       expect(sushiswapPairFactory.toToken).toEqual(
-        sushiswapPairFactoryContext.toToken
+        sushiswapPairFactoryContext.toToken,
       );
     });
 
     it('`fromToken` should retun correctly', () => {
       expect(sushiswapPairFactory.fromToken).toEqual(
-        sushiswapPairFactoryContext.fromToken
+        sushiswapPairFactoryContext.fromToken,
       );
     });
 
@@ -60,7 +60,7 @@ describe('SushiswapPairFactory', () => {
     describe('findAllPossibleRoutesWithQuote', () => {
       it('should return all possible routes with quotes', async () => {
         const result = await sushiswapPairFactory.findAllPossibleRoutesWithQuote(
-          '1'
+          '1',
         );
         expect(result).not.toBeUndefined();
       });
@@ -147,18 +147,18 @@ describe('SushiswapPairFactory', () => {
     };
 
     const sushiswapPairFactory = new SushiswapPairFactory(
-      SushiswapPairFactoryContext
+      SushiswapPairFactoryContext,
     );
 
     it('`toToken` should retun correctly', () => {
       expect(sushiswapPairFactory.toToken).toEqual(
-        SushiswapPairFactoryContext.toToken
+        SushiswapPairFactoryContext.toToken,
       );
     });
 
     it('`fromToken` should retun correctly', () => {
       expect(sushiswapPairFactory.fromToken).toEqual(
-        SushiswapPairFactoryContext.fromToken
+        SushiswapPairFactoryContext.fromToken,
       );
     });
 
@@ -179,7 +179,7 @@ describe('SushiswapPairFactory', () => {
     describe('findAllPossibleRoutesWithQuote', () => {
       it('should return all possible routes with quotes', async () => {
         const result = await sushiswapPairFactory.findAllPossibleRoutesWithQuote(
-          '1'
+          '1',
         );
         expect(result).not.toBeUndefined();
       });
@@ -266,18 +266,18 @@ describe('SushiswapPairFactory', () => {
     };
 
     const sushiswapPairFactory = new SushiswapPairFactory(
-      sushiswapPairFactoryContext
+      sushiswapPairFactoryContext,
     );
 
     it('`toToken` should retun correctly', () => {
       expect(sushiswapPairFactory.toToken).toEqual(
-        sushiswapPairFactoryContext.toToken
+        sushiswapPairFactoryContext.toToken,
       );
     });
 
     it('`fromToken` should retun correctly', () => {
       expect(sushiswapPairFactory.fromToken).toEqual(
-        sushiswapPairFactoryContext.fromToken
+        sushiswapPairFactoryContext.fromToken,
       );
     });
 
@@ -298,7 +298,7 @@ describe('SushiswapPairFactory', () => {
     describe('findAllPossibleRoutesWithQuote', () => {
       it('should return all possible routes with quotes', async () => {
         const result = await sushiswapPairFactory.findAllPossibleRoutesWithQuote(
-          '1'
+          '1',
         );
         expect(result).not.toBeUndefined();
       });
@@ -324,7 +324,7 @@ describe('SushiswapPairFactory', () => {
       it('should always return max hex', async () => {
         const result = await sushiswapPairFactory.allowance();
         expect(result).toEqual(
-          '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+          '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
         );
       });
     });
@@ -332,12 +332,12 @@ describe('SushiswapPairFactory', () => {
     describe('generateApproveMaxAllowanceData', () => {
       it('should generate the approve max allowance data', async () => {
         await expect(
-          sushiswapPairFactory.generateApproveMaxAllowanceData()
+          sushiswapPairFactory.generateApproveMaxAllowanceData(),
         ).rejects.toThrowError(
           new SushiswapError(
             'You do not need to generate approve sushiswap allowance when doing eth > erc20',
-            ErrorCodes.generateApproveMaxAllowanceDataNotAllowed
-          )
+            ErrorCodes.generateApproveMaxAllowanceDataNotAllowed,
+          ),
         );
       });
     });

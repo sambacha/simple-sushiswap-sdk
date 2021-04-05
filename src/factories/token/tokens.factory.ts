@@ -50,7 +50,7 @@ export class TokensFactory {
       }
 
       const contractCallResults = await this._multicall.call(
-        contractCallContexts
+        contractCallContexts,
       );
 
       const tokens: Token[] = [];
@@ -72,7 +72,7 @@ export class TokensFactory {
     } catch (error) {
       throw new SushiswapError(
         'invalid from or to contract tokens',
-        ErrorCodes.invalidFromOrToContractToken
+        ErrorCodes.invalidFromOrToContractToken,
       );
     }
   }

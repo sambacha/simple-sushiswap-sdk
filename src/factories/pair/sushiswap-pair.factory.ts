@@ -26,29 +26,29 @@ export class SushiswapPairFactory {
 
   private _fromTokenFactory = new TokenFactory(
     this._sushiswapPairFactoryContext.fromToken.contractAddress,
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider,
   );
 
   private _SushiswapRouterContractFactory = new SushiswapRouterContractFactory(
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider,
   );
 
   private _sushiswapPairFactory = new SushiswapPairContractFactory(
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider,
   );
 
   private _SushiswapRouterFactory = new SushiswapRouterFactory(
     this._sushiswapPairFactoryContext.fromToken,
     this._sushiswapPairFactoryContext.toToken,
     this._sushiswapPairFactoryContext.settings.disableMultihops,
-    this._sushiswapPairFactoryContext.ethersProvider
+    this._sushiswapPairFactoryContext.ethersProvider,
   );
 
   private _quoteChangeTimeout: NodeJS.Timeout | undefined;
   private _quoteChanged$: Subject<TradeContext> = new Subject<TradeContext>();
 
   constructor(
-    private _sushiswapPairFactoryContext: SushiswapPairFactoryContext
+    private _sushiswapPairFactoryContext: SushiswapPairFactoryContext,
   ) {}
 
   /**
@@ -87,7 +87,7 @@ export class SushiswapPairFactory {
       default:
         throw new SushiswapError(
           `${this.tradePath()} is not defined`,
-          ErrorCodes.tradePathIsNotSupported
+          ErrorCodes.tradePathIsNotSupported,
         );
     }
   }
@@ -114,7 +114,7 @@ export class SushiswapPairFactory {
     this.destroy();
 
     const tradeContext: TradeContext = await this.executeTradePath(
-      new BigNumber(amount)
+      new BigNumber(amount),
     );
 
     this.watchTradePrice(tradeContext);
@@ -142,10 +142,10 @@ export class SushiswapPairFactory {
    * @param amountToTrade The amount to trade
    */
   public async findAllPossibleRoutesWithQuote(
-    amountToTrade: string
+    amountToTrade: string,
   ): Promise<RouteQuote[]> {
     return await this._routes.getAllPossibleRoutesWithQuotes(
-      new BigNumber(amountToTrade)
+      new BigNumber(amountToTrade),
     );
   }
 
@@ -180,7 +180,7 @@ export class SushiswapPairFactory {
     }
 
     const bigNumberAllowance = new BigNumber(allowance).shiftedBy(
-      this.fromToken.decimals * -1
+      this.fromToken.decimals * -1,
     );
 
     if (new BigNumber(amount).isGreaterThan(bigNumberAllowance)) {
@@ -196,13 +196,13 @@ export class SushiswapPairFactory {
    */
   private hasGotEnoughBalanceErc20(
     amount: string,
-    balance: string
+    balance: string,
   ): {
     hasEnough: boolean;
     balance: string;
   } {
     const bigNumberBalance = new BigNumber(balance).shiftedBy(
-      this.fromToken.decimals * -1
+      this.fromToken.decimals * -1,
     );
 
     if (new BigNumber(amount).isGreaterThan(bigNumberBalance)) {
@@ -223,17 +223,17 @@ export class SushiswapPairFactory {
    * @param amount The amount you want to swap
    */
   private async hasGotEnoughBalanceEth(
-    amount: string
+    amount: string,
   ): Promise<{
     hasEnough: boolean;
     balance: string;
   }> {
     const balance = await this._sushiswapPairFactoryContext.ethersProvider.balanceOf(
-      this._sushiswapPairFactoryContext.ethereumAddress
+      this._sushiswapPairFactoryContext.ethereumAddress,
     );
 
     const bigNumberBalance = new BigNumber(balance).shiftedBy(
-      Constants.ETH_MAX_DECIMALS * -1
+      Constants.ETH_MAX_DECIMALS * -1,
     );
 
     if (new BigNumber(amount).isGreaterThan(bigNumberBalance)) {
@@ -254,7 +254,7 @@ export class SushiswapPairFactory {
    */
   public async getAllowanceAndBalanceOfForFromToken(): Promise<AllowanceAndBalanceOf> {
     return await this._fromTokenFactory.getAllowanceAndBalanceOf(
-      this._sushiswapPairFactoryContext.ethereumAddress
+      this._sushiswapPairFactoryContext.ethereumAddress,
     );
   }
 
@@ -268,7 +268,7 @@ export class SushiswapPairFactory {
     }
 
     const allowance = await this._fromTokenFactory.allowance(
-      this._sushiswapPairFactoryContext.ethereumAddress
+      this._sushiswapPairFactoryContext.ethereumAddress,
     );
 
     return allowance;
@@ -282,13 +282,13 @@ export class SushiswapPairFactory {
     if (this.tradePath() === TradePath.ethToErc20) {
       throw new SushiswapError(
         'You do not need to generate approve sushiswap allowance when doing eth > erc20',
-        ErrorCodes.generateApproveMaxAllowanceDataNotAllowed
+        ErrorCodes.generateApproveMaxAllowanceDataNotAllowed,
       );
     }
 
     const data = this._fromTokenFactory.generateApproveAllowanceData(
       ContractContext.routerAddress,
-      '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff'
+      '0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
     );
 
     return {
@@ -304,7 +304,7 @@ export class SushiswapPairFactory {
    * @param amount The amount
    */
   private async getTokenTradeAmountErc20ToEth(
-    amount: BigNumber
+    amount: BigNumber,
   ): Promise<TradeContext> {
     return await this.findBestPriceAndPathErc20ToEth(amount);
   }
@@ -314,7 +314,7 @@ export class SushiswapPairFactory {
    * @param ethAmount The eth amount
    */
   private async getTokenTradeAmountEthToErc20(
-    ethAmount: BigNumber
+    ethAmount: BigNumber,
   ): Promise<TradeContext> {
     return await this.findBestPriceAndPathEthToErc20(ethAmount);
   }
@@ -324,7 +324,7 @@ export class SushiswapPairFactory {
    * @param amount The amount
    */
   private async getTokenTradeAmountErc20ToErc20(
-    amount: BigNumber
+    amount: BigNumber,
   ): Promise<TradeContext> {
     return await this.findBestPriceAndPathErc20ToErc20(amount);
   }
@@ -334,17 +334,17 @@ export class SushiswapPairFactory {
    * @param amount the erc20Token amount being sent
    */
   private async findBestPriceAndPathErc20ToEth(
-    erc20Amount: BigNumber
+    erc20Amount: BigNumber,
   ): Promise<TradeContext> {
     const bestRouteQuotes = await this._routes.findBestRoute(erc20Amount);
     const bestRouteQuote = bestRouteQuotes.bestRouteQuote;
 
     const convertQuoteWithSlippage = new BigNumber(
-      bestRouteQuote.expectedConvertQuote
+      bestRouteQuote.expectedConvertQuote,
     ).minus(
       new BigNumber(bestRouteQuote.expectedConvertQuote)
         .times(this._sushiswapPairFactoryContext.settings.slippage)
-        .toFixed(this.fromToken.decimals)
+        .toFixed(this.fromToken.decimals),
     );
 
     const tradeExpires = this.generateTradeDeadlineUnixTime();
@@ -353,7 +353,7 @@ export class SushiswapPairFactory {
       erc20Amount,
       convertQuoteWithSlippage,
       bestRouteQuote.routePathArray,
-      tradeExpires.toString()
+      tradeExpires.toString(),
     );
 
     const allowanceAndBalanceOf = await this.getAllowanceAndBalanceOfForFromToken();
@@ -361,7 +361,7 @@ export class SushiswapPairFactory {
     const tradeContext: TradeContext = {
       baseConvertRequest: erc20Amount.toFixed(),
       minAmountConvertQuote: convertQuoteWithSlippage.toFixed(
-        this.toToken.decimals
+        this.toToken.decimals,
       ),
       expectedConvertQuote: bestRouteQuote.expectedConvertQuote,
       liquidityProviderFee: erc20Amount
@@ -373,13 +373,13 @@ export class SushiswapPairFactory {
       routePath: bestRouteQuote.routePathArray,
       hasEnoughAllowance: this._hasGotEnoughAllowance(
         erc20Amount.toFixed(),
-        allowanceAndBalanceOf.allowance
+        allowanceAndBalanceOf.allowance,
       ),
       toToken: this.toToken,
       fromToken: this.fromToken,
       fromBalance: this.hasGotEnoughBalanceErc20(
         erc20Amount.toFixed(),
-        allowanceAndBalanceOf.balanceOf
+        allowanceAndBalanceOf.balanceOf,
       ),
       transaction: this.buildUpTransactionErc20(data),
       allTriedRoutesQuotes: bestRouteQuotes.triedRoutesQuote,
@@ -395,17 +395,17 @@ export class SushiswapPairFactory {
    * @param amount the erc20Token amount being sent
    */
   private async findBestPriceAndPathErc20ToErc20(
-    erc20Amount: BigNumber
+    erc20Amount: BigNumber,
   ): Promise<TradeContext> {
     const bestRouteQuotes = await this._routes.findBestRoute(erc20Amount);
     const bestRouteQuote = bestRouteQuotes.bestRouteQuote;
 
     const convertQuoteWithSlippage = new BigNumber(
-      bestRouteQuote.expectedConvertQuote
+      bestRouteQuote.expectedConvertQuote,
     ).minus(
       new BigNumber(bestRouteQuote.expectedConvertQuote)
         .times(this._sushiswapPairFactoryContext.settings.slippage)
-        .toFixed(this.fromToken.decimals)
+        .toFixed(this.fromToken.decimals),
     );
 
     const tradeExpires = this.generateTradeDeadlineUnixTime();
@@ -414,7 +414,7 @@ export class SushiswapPairFactory {
       erc20Amount,
       convertQuoteWithSlippage,
       bestRouteQuote.routePathArray,
-      tradeExpires.toString()
+      tradeExpires.toString(),
     );
 
     const allowanceAndBalanceOf = await this.getAllowanceAndBalanceOfForFromToken();
@@ -422,7 +422,7 @@ export class SushiswapPairFactory {
     const tradeContext: TradeContext = {
       baseConvertRequest: erc20Amount.toFixed(),
       minAmountConvertQuote: convertQuoteWithSlippage.toFixed(
-        this.toToken.decimals
+        this.toToken.decimals,
       ),
       expectedConvertQuote: bestRouteQuote.expectedConvertQuote,
       liquidityProviderFee: erc20Amount
@@ -434,13 +434,13 @@ export class SushiswapPairFactory {
       routePath: bestRouteQuote.routePathArray,
       hasEnoughAllowance: this._hasGotEnoughAllowance(
         erc20Amount.toFixed(),
-        allowanceAndBalanceOf.allowance
+        allowanceAndBalanceOf.allowance,
       ),
       toToken: this.toToken,
       fromToken: this.fromToken,
       fromBalance: this.hasGotEnoughBalanceErc20(
         erc20Amount.toFixed(),
-        allowanceAndBalanceOf.balanceOf
+        allowanceAndBalanceOf.balanceOf,
       ),
       transaction: this.buildUpTransactionErc20(data),
       allTriedRoutesQuotes: bestRouteQuotes.triedRoutesQuote,
@@ -456,17 +456,17 @@ export class SushiswapPairFactory {
    * @param ethAmount The eth amount
    */
   private async findBestPriceAndPathEthToErc20(
-    ethAmount: BigNumber
+    ethAmount: BigNumber,
   ): Promise<TradeContext> {
     const bestRouteQuotes = await this._routes.findBestRoute(ethAmount);
     const bestRouteQuote = bestRouteQuotes.bestRouteQuote;
 
     const convertQuoteWithSlippage = new BigNumber(
-      bestRouteQuote.expectedConvertQuote
+      bestRouteQuote.expectedConvertQuote,
     ).minus(
       new BigNumber(bestRouteQuote.expectedConvertQuote)
         .times(this._sushiswapPairFactoryContext.settings.slippage)
-        .toFixed(this.toToken.decimals)
+        .toFixed(this.toToken.decimals),
     );
 
     const tradeExpires = this.generateTradeDeadlineUnixTime();
@@ -474,13 +474,13 @@ export class SushiswapPairFactory {
     const data = this.generateTradeDataEthToErc20(
       convertQuoteWithSlippage,
       bestRouteQuote.routePathArray,
-      tradeExpires.toString()
+      tradeExpires.toString(),
     );
 
     const tradeContext: TradeContext = {
       baseConvertRequest: ethAmount.toFixed(),
       minAmountConvertQuote: convertQuoteWithSlippage.toFixed(
-        this.toToken.decimals
+        this.toToken.decimals,
       ),
       expectedConvertQuote: bestRouteQuote.expectedConvertQuote,
       liquidityProviderFee: ethAmount
@@ -512,7 +512,7 @@ export class SushiswapPairFactory {
   private generateTradeDataEthToErc20(
     tokenAmount: BigNumber,
     routePathArray: string[],
-    deadline: string
+    deadline: string,
   ): string {
     // sushiswap adds extra digits on even if the token is say 8 digits long
     const convertedMinTokens = tokenAmount
@@ -525,7 +525,7 @@ export class SushiswapPairFactory {
       hex,
       routePathArray,
       this._sushiswapPairFactoryContext.ethereumAddress,
-      deadline
+      deadline,
     );
   }
 
@@ -540,7 +540,7 @@ export class SushiswapPairFactory {
     tokenAmount: BigNumber,
     ethAmountOutMin: BigNumber,
     routePathArray: string[],
-    deadline: string
+    deadline: string,
   ): string {
     // sushiswap adds extra digits on even if the token is say 8 digits long
     const amountIn = tokenAmount
@@ -554,7 +554,7 @@ export class SushiswapPairFactory {
       ethAmountOutWei,
       routePathArray,
       this._sushiswapPairFactoryContext.ethereumAddress,
-      deadline
+      deadline,
     );
   }
 
@@ -569,7 +569,7 @@ export class SushiswapPairFactory {
     tokenAmount: BigNumber,
     tokenAmountMin: BigNumber,
     routePathArray: string[],
-    deadline: string
+    deadline: string,
   ): string {
     // sushiswap adds extra digits on even if the token is say 8 digits long
     const amountIn = tokenAmount
@@ -584,7 +584,7 @@ export class SushiswapPairFactory {
       hexlify(amountMin),
       routePathArray,
       this._sushiswapPairFactoryContext.ethereumAddress,
-      deadline
+      deadline,
     );
   }
 
@@ -608,7 +608,7 @@ export class SushiswapPairFactory {
    */
   private buildUpTransactionEth(
     ethValue: BigNumber,
-    data: string
+    data: string,
   ): Transaction {
     return {
       to: ContractContext.routerAddress,
@@ -633,7 +633,7 @@ export class SushiswapPairFactory {
     const now = new Date();
     const expiryDate = new Date(
       now.getTime() +
-        this._sushiswapPairFactoryContext.settings.deadlineMinutes * 60000
+        this._sushiswapPairFactoryContext.settings.deadlineMinutes * 60000,
     );
     return (expiryDate.getTime() / 1e3) | 0;
   }
@@ -646,11 +646,11 @@ export class SushiswapPairFactory {
     this._quoteChangeTimeout = setTimeout(async () => {
       if (this._quoteChanged$.observers.length > 0) {
         const trade = await this.executeTradePath(
-          new BigNumber(tradeContext.baseConvertRequest)
+          new BigNumber(tradeContext.baseConvertRequest),
         );
         if (
           !new BigNumber(trade.expectedConvertQuote).eq(
-            tradeContext.expectedConvertQuote
+            tradeContext.expectedConvertQuote,
           ) ||
           trade.routeText !== tradeContext.routeText
         ) {

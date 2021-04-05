@@ -6,7 +6,7 @@ import { EthersProvider } from '../../ethers-provider';
 export class SushiswapContractFactory {
   private _sushiswapFactoryContract = this._ethersProvider.getContract<FactoryContractContext>(
     JSON.stringify(ContractContext.factoryAbi),
-    ContractContext.factoryAddress
+    ContractContext.factoryAddress,
   );
 
   constructor(private _ethersProvider: EthersProvider) {}
@@ -24,7 +24,7 @@ export class SushiswapContractFactory {
   public createPair(tokenA: string, tokenB: string): string {
     return this._sushiswapFactoryContract.interface.encodeFunctionData(
       'createPair',
-      [tokenA, tokenB]
+      [tokenA, tokenB],
     );
   }
 
@@ -43,14 +43,14 @@ export class SushiswapContractFactory {
   public async setFeeTo(_feeTo: string): Promise<string> {
     return this._sushiswapFactoryContract.interface.encodeFunctionData(
       'setFeeTo',
-      [_feeTo]
+      [_feeTo],
     );
   }
 
   public async setFeeToSetter(_feeToSetter: string): Promise<string> {
     return this._sushiswapFactoryContract.interface.encodeFunctionData(
       'setFeeToSetter',
-      [_feeToSetter]
+      [_feeToSetter],
     );
   }
 }

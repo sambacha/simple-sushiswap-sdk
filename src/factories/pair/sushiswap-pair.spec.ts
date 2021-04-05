@@ -15,8 +15,8 @@ describe('SushiswapPair', () => {
     expect(() => new SushiswapPair(context)).toThrowError(
       new SushiswapError(
         'Must have a `fromTokenContractAddress` on the context',
-        ErrorCodes.fromTokenContractAddressRequired
-      )
+        ErrorCodes.fromTokenContractAddressRequired,
+      ),
     );
   });
 
@@ -28,8 +28,8 @@ describe('SushiswapPair', () => {
     expect(() => new SushiswapPair(context)).toThrowError(
       new SushiswapError(
         '`fromTokenContractAddress` is not a valid contract address',
-        ErrorCodes.fromTokenContractAddressNotValid
-      )
+        ErrorCodes.fromTokenContractAddressNotValid,
+      ),
     );
   });
 
@@ -41,8 +41,8 @@ describe('SushiswapPair', () => {
     expect(() => new SushiswapPair(context)).toThrowError(
       new SushiswapError(
         'Must have a `toTokenContractAddress` on the context',
-        ErrorCodes.toTokenContractAddressRequired
-      )
+        ErrorCodes.toTokenContractAddressRequired,
+      ),
     );
   });
 
@@ -55,8 +55,8 @@ describe('SushiswapPair', () => {
     expect(() => new SushiswapPair(context)).toThrowError(
       new SushiswapError(
         '`toTokenContractAddress` is not a valid contract address',
-        ErrorCodes.toTokenContractAddressNotValid
-      )
+        ErrorCodes.toTokenContractAddressNotValid,
+      ),
     );
   });
 
@@ -69,8 +69,8 @@ describe('SushiswapPair', () => {
     expect(() => new SushiswapPair(context)).toThrowError(
       new SushiswapError(
         'Must have a `ethereumAddress` on the context',
-        ErrorCodes.ethereumAddressRequired
-      )
+        ErrorCodes.ethereumAddressRequired,
+      ),
     );
   });
 
@@ -84,8 +84,8 @@ describe('SushiswapPair', () => {
     expect(() => new SushiswapPair(context)).toThrowError(
       new SushiswapError(
         '`ethereumAddress` is not a valid address',
-        ErrorCodes.ethereumAddressNotValid
-      )
+        ErrorCodes.ethereumAddressNotValid,
+      ),
     );
   });
 
@@ -99,8 +99,8 @@ describe('SushiswapPair', () => {
     expect(() => new SushiswapPair(context)).toThrowError(
       new SushiswapError(
         'You must have a chainId on the context.',
-        ErrorCodes.youMustSupplyAChainId
-      )
+        ErrorCodes.youMustSupplyAChainId,
+      ),
     );
   });
 

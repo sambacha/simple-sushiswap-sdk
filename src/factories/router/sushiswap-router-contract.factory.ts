@@ -6,7 +6,7 @@ import { EthersProvider } from '../../ethers-provider';
 export class SushiswapRouterContractFactory {
   private _sushiswapRouterContract = this._ethersProvider.getContract<RouterContractContext>(
     JSON.stringify(ContractContext.routerAbi),
-    ContractContext.routerAddress
+    ContractContext.routerAddress,
   );
 
   constructor(private _ethersProvider: EthersProvider) {}
@@ -19,7 +19,7 @@ export class SushiswapRouterContractFactory {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'addLiquidity',
@@ -32,7 +32,7 @@ export class SushiswapRouterContractFactory {
         amountBMin,
         to,
         deadline,
-      ]
+      ],
     );
   }
 
@@ -42,11 +42,11 @@ export class SushiswapRouterContractFactory {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'addLiquidityETH',
-      [token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline]
+      [token, amountTokenDesired, amountTokenMin, amountETHMin, to, deadline],
     );
   }
 
@@ -56,11 +56,11 @@ export class SushiswapRouterContractFactory {
 
   public async getAmountsOut(
     amountIn: BigNumberish,
-    path: string[]
+    path: string[],
   ): Promise<string[]> {
     const amounts = await this._sushiswapRouterContract.getAmountsOut(
       amountIn,
-      path
+      path,
     );
     return amounts.map((c) => c.toHexString());
   }
@@ -68,7 +68,7 @@ export class SushiswapRouterContractFactory {
   public async quote(
     amountA: BigNumberish,
     reserveA: BigNumberish,
-    reserveB: BigNumberish
+    reserveB: BigNumberish,
   ): Promise<string> {
     return (
       await this._sushiswapRouterContract.quote(amountA, reserveA, reserveB)
@@ -82,11 +82,11 @@ export class SushiswapRouterContractFactory {
     amountAMin: BigNumberish,
     amountBMin: BigNumberish,
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'removeLiquidity',
-      [tokenA, tokenB, liquidity, amountAMin, amountBMin, to, deadline]
+      [tokenA, tokenB, liquidity, amountAMin, amountBMin, to, deadline],
     );
   }
 
@@ -96,11 +96,11 @@ export class SushiswapRouterContractFactory {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'removeLiquidity',
-      [token, liquidity, amountTokenMin, amountETHMin, to, deadline]
+      [token, liquidity, amountTokenMin, amountETHMin, to, deadline],
     );
   }
 
@@ -110,11 +110,11 @@ export class SushiswapRouterContractFactory {
     amountTokenMin: BigNumberish,
     amountETHMin: BigNumberish,
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'removeLiquidityETHSupportingFeeOnTransferTokens',
-      [token, liquidity, amountTokenMin, amountETHMin, to, deadline]
+      [token, liquidity, amountTokenMin, amountETHMin, to, deadline],
     );
   }
 
@@ -128,7 +128,7 @@ export class SushiswapRouterContractFactory {
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
-    s: BytesLike
+    s: BytesLike,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'removeLiquidityETHWithPermit',
@@ -143,7 +143,7 @@ export class SushiswapRouterContractFactory {
         v,
         r,
         s,
-      ]
+      ],
     );
   }
 
@@ -157,7 +157,7 @@ export class SushiswapRouterContractFactory {
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
-    s: BytesLike
+    s: BytesLike,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'removeLiquidityETHWithPermitSupportingFeeOnTransferTokens',
@@ -172,7 +172,7 @@ export class SushiswapRouterContractFactory {
         v,
         r,
         s,
-      ]
+      ],
     );
   }
 
@@ -187,7 +187,7 @@ export class SushiswapRouterContractFactory {
     approveMax: boolean,
     v: BigNumberish,
     r: BytesLike,
-    s: BytesLike
+    s: BytesLike,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'removeLiquidityWithPermit',
@@ -203,7 +203,7 @@ export class SushiswapRouterContractFactory {
         v,
         r,
         s,
-      ]
+      ],
     );
   }
 
@@ -211,11 +211,11 @@ export class SushiswapRouterContractFactory {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapExactETHForTokens',
-      [amountOutMin, path, to, deadline]
+      [amountOutMin, path, to, deadline],
     );
   }
 
@@ -223,11 +223,11 @@ export class SushiswapRouterContractFactory {
     amountOut: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapETHForExactTokens',
-      [amountOut, path, to, deadline]
+      [amountOut, path, to, deadline],
     );
   }
 
@@ -236,11 +236,11 @@ export class SushiswapRouterContractFactory {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapExactETHForTokensSupportingFeeOnTransferTokens',
-      [amountIn, amountOutMin, path, to, deadline]
+      [amountIn, amountOutMin, path, to, deadline],
     );
   }
 
@@ -249,11 +249,11 @@ export class SushiswapRouterContractFactory {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapExactTokensForETH',
-      [amountIn, amountOutMin, path, to, deadline]
+      [amountIn, amountOutMin, path, to, deadline],
     );
   }
 
@@ -262,11 +262,11 @@ export class SushiswapRouterContractFactory {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapTokensForExactETH',
-      [amountOut, amountInMax, path, to, deadline]
+      [amountOut, amountInMax, path, to, deadline],
     );
   }
 
@@ -275,11 +275,11 @@ export class SushiswapRouterContractFactory {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapExactTokensForETHSupportingFeeOnTransferTokens',
-      [amountIn, amountOutMin, path, to, deadline]
+      [amountIn, amountOutMin, path, to, deadline],
     );
   }
 
@@ -288,11 +288,11 @@ export class SushiswapRouterContractFactory {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapExactTokensForTokens',
-      [amountIn, amountOutMin, path, to, deadline]
+      [amountIn, amountOutMin, path, to, deadline],
     );
   }
 
@@ -301,11 +301,11 @@ export class SushiswapRouterContractFactory {
     amountInMax: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapTokensForExactTokens',
-      [amountOut, amountInMax, path, to, deadline]
+      [amountOut, amountInMax, path, to, deadline],
     );
   }
 
@@ -314,11 +314,11 @@ export class SushiswapRouterContractFactory {
     amountOutMin: BigNumberish,
     path: string[],
     to: string,
-    deadline: BigNumberish
+    deadline: BigNumberish,
   ): string {
     return this._sushiswapRouterContract.interface.encodeFunctionData(
       'swapExactTokensForTokensSupportingFeeOnTransferTokens',
-      [amountIn, amountOutMin, path, to, deadline]
+      [amountIn, amountOutMin, path, to, deadline],
     );
   }
 }

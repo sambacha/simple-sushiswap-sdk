@@ -76,7 +76,7 @@ export class WETH {
       default:
         throw new SushiswapError(
           `${chainId} is not allowed`,
-          ErrorCodes.tokenChainIdContractDoesNotExist
+          ErrorCodes.tokenChainIdContractDoesNotExist,
         );
     }
   }

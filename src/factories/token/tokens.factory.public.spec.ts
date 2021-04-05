@@ -25,12 +25,12 @@ describe('TokensFactoryPublic', () => {
         tokensFactoryPublic.getTokens([
           '0x419D0d8BdD9aF5e606Ae2232ed285Aff190E722c',
           MOCKAAVE().contractAddress,
-        ])
+        ]),
       ).rejects.toThrowError(
         new SushiswapError(
           'invalid from or to contract tokens',
-          ErrorCodes.invalidFromOrToContractToken
-        )
+          ErrorCodes.invalidFromOrToContractToken,
+        ),
       );
     });
   });

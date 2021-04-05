@@ -36,7 +36,7 @@ export class SushiswapRouterFactory {
     private _fromToken: Token,
     private _toToken: Token,
     private _disableMultihops: boolean,
-    private _ethersProvider: EthersProvider
+    private _ethersProvider: EthersProvider,
   ) {}
 
   /**
@@ -94,7 +94,7 @@ export class SushiswapRouterFactory {
     const results = contractCallResults.results[contractCallContext.reference];
 
     const availablePairs = results.callsReturnContext.filter(
-      (c) => c.returnValues[0] !== '0x0000000000000000000000000000000000000000'
+      (c) => c.returnValues[0] !== '0x0000000000000000000000000000000000000000',
     );
 
     const fromTokenRoutes: TokenRoutes = {
@@ -103,7 +103,7 @@ export class SushiswapRouterFactory {
         fromTokenPairs: this.getTokenAvailablePairs(
           this._fromToken,
           availablePairs,
-          RouterDirection.from
+          RouterDirection.from,
         ),
       },
     };
@@ -114,7 +114,7 @@ export class SushiswapRouterFactory {
         toTokenPairs: this.getTokenAvailablePairs(
           this._toToken,
           availablePairs,
-          RouterDirection.to
+          RouterDirection.to,
         ),
       },
     };
@@ -125,13 +125,13 @@ export class SushiswapRouterFactory {
       const fromTokenPairs = this.getTokenAvailablePairs(
         this.allMainTokens[i],
         availablePairs,
-        RouterDirection.from
+        RouterDirection.from,
       );
 
       const toTokenPairs = this.getTokenAvailablePairs(
         this.allMainTokens[i],
         availablePairs,
-        RouterDirection.to
+        RouterDirection.to,
       );
 
       allMainRoutes.push({
@@ -143,12 +143,12 @@ export class SushiswapRouterFactory {
     return this.workOutAllPossibleRoutes(
       fromTokenRoutes,
       toTokenRoutes,
-      allMainRoutes
+      allMainRoutes,
     );
   }
 
   public async getAllPossibleRoutesWithQuotes(
-    amountToTrade: BigNumber
+    amountToTrade: BigNumber,
   ): Promise<RouteQuote[]> {
     const tradeAmount = this.formatAmountToTrade(amountToTrade);
 
@@ -189,13 +189,13 @@ export class SushiswapRouterFactory {
    * @param amountToTrade The amount they want to trade
    */
   public async findBestRoute(
-    amountToTrade: BigNumber
+    amountToTrade: BigNumber,
   ): Promise<BestRouteQuotes> {
     const allRoutes = await this.getAllPossibleRoutesWithQuotes(amountToTrade);
     if (allRoutes.length === 0) {
       throw new SushiswapError(
         `No routes found for ${this._fromToken.contractAddress} > ${this._toToken.contractAddress}`,
-        ErrorCodes.noRoutesFound
+        ErrorCodes.noRoutesFound,
       );
     }
 
@@ -221,19 +221,19 @@ export class SushiswapRouterFactory {
   private workOutAllPossibleRoutes(
     fromTokenRoutes: TokenRoutes,
     toTokenRoutes: TokenRoutes,
-    allMainRoutes: TokenRoutes[]
+    allMainRoutes: TokenRoutes[],
   ): Token[][] {
     const jointCompatibleRoutes = toTokenRoutes.pairs.toTokenPairs!.filter(
       (t) =>
         fromTokenRoutes.pairs.fromTokenPairs!.find(
-          (f) => f.contractAddress === t.contractAddress
-        )
+          (f) => f.contractAddress === t.contractAddress,
+        ),
     );
 
     const routes: Token[][] = [];
     if (
       fromTokenRoutes.pairs.fromTokenPairs!.find(
-        (t) => t.contractAddress === toTokenRoutes.token.contractAddress
+        (t) => t.contractAddress === toTokenRoutes.token.contractAddress,
       )
     ) {
       routes.push([fromTokenRoutes.token, toTokenRoutes.token]);
@@ -243,7 +243,7 @@ export class SushiswapRouterFactory {
       const tokenRoute = allMainRoutes[i];
       if (
         jointCompatibleRoutes.find(
-          (c) => c.contractAddress === tokenRoute.token.contractAddress
+          (c) => c.contractAddress === tokenRoute.token.contractAddress,
         )
       ) {
         routes.push([
@@ -257,7 +257,7 @@ export class SushiswapRouterFactory {
           if (
             tokenRoute.pairs.toTokenPairs!.find(
               (pair) =>
-                pair.contractAddress === fromSupportedToken.contractAddress
+                pair.contractAddress === fromSupportedToken.contractAddress,
             )
           ) {
             const workedOutFromRoute = [
@@ -280,7 +280,7 @@ export class SushiswapRouterFactory {
           if (
             tokenRoute.pairs.fromTokenPairs!.find(
               (pair) =>
-                pair.contractAddress === toSupportedToken.contractAddress
+                pair.contractAddress === toSupportedToken.contractAddress,
             )
           ) {
             const workedOutToRoute = [
@@ -307,28 +307,28 @@ export class SushiswapRouterFactory {
   private getTokenAvailablePairs(
     token: Token,
     allAvailablePairs: CallReturnContext[],
-    direction: RouterDirection
+    direction: RouterDirection,
   ) {
     switch (direction) {
       case RouterDirection.from:
         return this.getFromRouterDirectionAvailablePairs(
           token,
-          allAvailablePairs
+          allAvailablePairs,
         );
       case RouterDirection.to:
         return this.getToRouterDirectionAvailablePairs(
           token,
-          allAvailablePairs
+          allAvailablePairs,
         );
     }
   }
 
   private getFromRouterDirectionAvailablePairs(
     token: Token,
-    allAvailablePairs: CallReturnContext[]
+    allAvailablePairs: CallReturnContext[],
   ): Token[] {
     const fromRouterDirection = allAvailablePairs.filter(
-      (c) => c.reference.split('-')[0] === token.contractAddress
+      (c) => c.reference.split('-')[0] === token.contractAddress,
     );
     const tokens: Token[] = [];
 
@@ -336,8 +336,8 @@ export class SushiswapRouterFactory {
       const context = fromRouterDirection[index];
       tokens.push(
         this.allTokens.find(
-          (t) => t.contractAddress === context.reference.split('-')[1]
-        )!
+          (t) => t.contractAddress === context.reference.split('-')[1],
+        )!,
       );
     }
 
@@ -346,10 +346,10 @@ export class SushiswapRouterFactory {
 
   private getToRouterDirectionAvailablePairs(
     token: Token,
-    allAvailablePairs: CallReturnContext[]
+    allAvailablePairs: CallReturnContext[],
   ): Token[] {
     const toRouterDirection = allAvailablePairs.filter(
-      (c) => c.reference.split('-')[1] === token.contractAddress
+      (c) => c.reference.split('-')[1] === token.contractAddress,
     );
     const tokens: Token[] = [];
 
@@ -357,8 +357,8 @@ export class SushiswapRouterFactory {
       const context = toRouterDirection[index];
       tokens.push(
         this.allTokens.find(
-          (t) => t.contractAddress === context.reference.split('-')[0]
-        )!
+          (t) => t.contractAddress === context.reference.split('-')[0],
+        )!,
       );
     }
 
@@ -370,7 +370,7 @@ export class SushiswapRouterFactory {
    * @param contractCallReturnContext The contract call return context
    */
   private buildRouteQuotesFromResults(
-    contractCallReturnContext: ContractCallReturnContext
+    contractCallReturnContext: ContractCallReturnContext,
   ): RouteQuote[] {
     const tradePath = this.tradePath();
 
@@ -398,7 +398,7 @@ export class SushiswapRouterFactory {
           default:
             throw new SushiswapError(
               `${tradePath} not found`,
-              ErrorCodes.tradePathIsNotSupported
+              ErrorCodes.tradePathIsNotSupported,
             );
         }
       }
@@ -406,13 +406,13 @@ export class SushiswapRouterFactory {
       return result.sort((a, b) => {
         if (
           new BigNumber(a.expectedConvertQuote).isGreaterThan(
-            b.expectedConvertQuote
+            b.expectedConvertQuote,
           )
         ) {
           return -1;
         }
         return new BigNumber(a.expectedConvertQuote).isLessThan(
-          b.expectedConvertQuote
+          b.expectedConvertQuote,
         )
           ? 1
           : 0;
@@ -427,7 +427,7 @@ export class SushiswapRouterFactory {
    * @param callReturnContext The call return context
    */
   private buildRouteQuoteForErc20ToErc20(
-    callReturnContext: CallReturnContext
+    callReturnContext: CallReturnContext,
   ): RouteQuote {
     return this.buildRouteQuoteForEthToErc20(callReturnContext);
   }
@@ -437,12 +437,12 @@ export class SushiswapRouterFactory {
    * @param callReturnContext The call return context
    */
   private buildRouteQuoteForEthToErc20(
-    callReturnContext: CallReturnContext
+    callReturnContext: CallReturnContext,
   ): RouteQuote {
     const convertQuoteUnformatted = new BigNumber(
       callReturnContext.returnValues[
         callReturnContext.returnValues.length - 1
-      ].hex
+      ].hex,
     );
     return {
       expectedConvertQuote: convertQuoteUnformatted
@@ -451,7 +451,7 @@ export class SushiswapRouterFactory {
       routePathArrayTokenMap: callReturnContext.methodParameters[1].map(
         (c: string) => {
           return this.allTokens.find((t) => t.contractAddress === c);
-        }
+        },
       ),
       routeText: callReturnContext.methodParameters[1]
         .map((c: string) => {
@@ -468,21 +468,21 @@ export class SushiswapRouterFactory {
    * @param callReturnContext The call return context
    */
   private buildRouteQuoteForErc20ToEth(
-    callReturnContext: CallReturnContext
+    callReturnContext: CallReturnContext,
   ): RouteQuote {
     const convertQuoteUnformatted = new BigNumber(
       callReturnContext.returnValues[
         callReturnContext.returnValues.length - 1
-      ].hex
+      ].hex,
     );
     return {
       expectedConvertQuote: new BigNumber(
-        formatEther(convertQuoteUnformatted)
+        formatEther(convertQuoteUnformatted),
       ).toFixed(this._toToken.decimals),
       routePathArrayTokenMap: callReturnContext.methodParameters[1].map(
         (c: string) => {
           return this.allTokens.find((t) => t.contractAddress === c);
-        }
+        },
       ),
       routeText: callReturnContext.methodParameters[1]
         .map((c: string) => {
@@ -509,7 +509,7 @@ export class SushiswapRouterFactory {
       default:
         throw new SushiswapError(
           `Internal trade path ${this.tradePath()} is not supported`,
-          ErrorCodes.tradePathIsNotSupported
+          ErrorCodes.tradePathIsNotSupported,
         );
     }
   }

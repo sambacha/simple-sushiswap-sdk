@@ -17,47 +17,47 @@ export class SushiswapPair {
   constructor(
     private _sushiswapPairContext:
       | SushiswapPairContextForChainId
-      | SushiswapPairContextForProviderUrl
+      | SushiswapPairContextForProviderUrl,
   ) {
     if (!this._sushiswapPairContext.fromTokenContractAddress) {
       throw new SushiswapError(
         'Must have a `fromTokenContractAddress` on the context',
-        ErrorCodes.fromTokenContractAddressRequired
+        ErrorCodes.fromTokenContractAddressRequired,
       );
     }
 
     if (!isAddress(this._sushiswapPairContext.fromTokenContractAddress)) {
       throw new SushiswapError(
         '`fromTokenContractAddress` is not a valid contract address',
-        ErrorCodes.fromTokenContractAddressNotValid
+        ErrorCodes.fromTokenContractAddressNotValid,
       );
     }
 
     if (!this._sushiswapPairContext.toTokenContractAddress) {
       throw new SushiswapError(
         'Must have a `toTokenContractAddress` on the context',
-        ErrorCodes.toTokenContractAddressRequired
+        ErrorCodes.toTokenContractAddressRequired,
       );
     }
 
     if (!isAddress(this._sushiswapPairContext.toTokenContractAddress)) {
       throw new SushiswapError(
         '`toTokenContractAddress` is not a valid contract address',
-        ErrorCodes.toTokenContractAddressNotValid
+        ErrorCodes.toTokenContractAddressNotValid,
       );
     }
 
     if (!this._sushiswapPairContext.ethereumAddress) {
       throw new SushiswapError(
         'Must have a `ethereumAddress` on the context',
-        ErrorCodes.ethereumAddressRequired
+        ErrorCodes.ethereumAddressRequired,
       );
     }
 
     if (!isAddress(this._sushiswapPairContext.ethereumAddress)) {
       throw new SushiswapError(
         '`ethereumAddress` is not a valid address',
-        ErrorCodes.ethereumAddressNotValid
+        ErrorCodes.ethereumAddressNotValid,
       );
     }
 
@@ -80,7 +80,7 @@ export class SushiswapPair {
 
     throw new SushiswapError(
       'You must have a chainId on the context.',
-      ErrorCodes.youMustSupplyAChainId
+      ErrorCodes.youMustSupplyAChainId,
     );
   }
 
@@ -98,12 +98,12 @@ export class SushiswapPair {
       fromToken: tokens.find(
         (t) =>
           t.contractAddress ===
-          this._sushiswapPairContext.fromTokenContractAddress
+          this._sushiswapPairContext.fromTokenContractAddress,
       )!,
       toToken: tokens.find(
         (t) =>
           t.contractAddress ===
-          this._sushiswapPairContext.toTokenContractAddress
+          this._sushiswapPairContext.toTokenContractAddress,
       )!,
       ethereumAddress: this._sushiswapPairContext.ethereumAddress,
       settings:

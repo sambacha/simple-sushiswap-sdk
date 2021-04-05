@@ -6,7 +6,7 @@ export class TokenFactoryPublic extends TokenFactory {
   constructor(
     tokenContractAddress: string,
     chainId: ChainId,
-    providerUrl?: string | undefined
+    providerUrl?: string | undefined,
   ) {
     super(tokenContractAddress, new EthersProvider(chainId, providerUrl));
   }

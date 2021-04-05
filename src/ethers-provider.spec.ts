@@ -12,7 +12,7 @@ describe('EthersProvider', () => {
     it('getContract', () => {
       const result = ethersProvider.getContract<PairContractContext>(
         JSON.stringify(ContractContext.pairAbi),
-        ContractContext.pairAddress
+        ContractContext.pairAddress,
       );
 
       expect(result).not.toBeUndefined();
@@ -40,7 +40,7 @@ describe('EthersProvider', () => {
   describe('with chain id and providerUrl', () => {
     const ethersProvider = new EthersProvider(
       ChainId.MAINNET,
-      MOCK_PROVIDER_URL()
+      MOCK_PROVIDER_URL(),
     );
 
     it('should throw error if chainId not be found', () => {
@@ -49,15 +49,15 @@ describe('EthersProvider', () => {
       }).toThrowError(
         new SushiswapError(
           'Can not find chain name for 10293',
-          ErrorCodes.canNotFindChainId
-        )
+          ErrorCodes.canNotFindChainId,
+        ),
       );
     });
 
     it('getContract', () => {
       const result = ethersProvider.getContract<PairContractContext>(
         JSON.stringify(ContractContext.pairAbi),
-        ContractContext.pairAddress
+        ContractContext.pairAddress,
       );
 
       expect(result).not.toBeUndefined();

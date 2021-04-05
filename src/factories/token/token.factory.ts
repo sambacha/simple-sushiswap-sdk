@@ -13,12 +13,12 @@ export class TokenFactory {
 
   private _erc20TokenContracy = this._ethersProvider.getContract<ERC20ContractContext>(
     JSON.stringify(ContractContext.erc20Abi),
-    this._tokenContractAddress
+    this._tokenContractAddress,
   );
 
   constructor(
     private _tokenContractAddress: string,
-    private _ethersProvider: EthersProvider
+    private _ethersProvider: EthersProvider,
   ) {}
 
   /**
@@ -72,7 +72,7 @@ export class TokenFactory {
   public async allowance(ethereumAddress: string): Promise<string> {
     const allowance = await this._erc20TokenContracy.allowance(
       ethereumAddress,
-      ContractContext.routerAddress
+      ContractContext.routerAddress,
     );
 
     return allowance.toHexString();
@@ -115,7 +115,7 @@ export class TokenFactory {
    * @param ethereumAddress
    */
   public async getAllowanceAndBalanceOf(
-    ethereumAddress: string
+    ethereumAddress: string,
   ): Promise<AllowanceAndBalanceOf> {
     const ALLOWANCE = 0;
     const BALANCEOF = 1;
@@ -143,10 +143,10 @@ export class TokenFactory {
 
     return {
       allowance: BigNumber.from(
-        results.callsReturnContext[ALLOWANCE].returnValues[0]
+        results.callsReturnContext[ALLOWANCE].returnValues[0],
       ).toHexString(),
       balanceOf: BigNumber.from(
-        results.callsReturnContext[BALANCEOF].returnValues[0]
+        results.callsReturnContext[BALANCEOF].returnValues[0],
       ).toHexString(),
     };
   }

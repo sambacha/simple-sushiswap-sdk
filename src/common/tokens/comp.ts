@@ -27,7 +27,7 @@ export class COMP {
       default:
         throw new SushiswapError(
           `${chainId} is not allowed`,
-          ErrorCodes.tokenChainIdContractDoesNotExist
+          ErrorCodes.tokenChainIdContractDoesNotExist,
         );
     }
   }

@@ -78,7 +78,7 @@ export interface SushiswapFactory {
    */
   'new'(
     _feeToSetter: string,
-    overrides?: ContractTransactionOverrides
+    overrides?: ContractTransactionOverrides,
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -89,7 +89,7 @@ export interface SushiswapFactory {
    */
   allPairs(
     parameter0: BigNumberish,
-    overrides?: ContractCallOverrides
+    overrides?: ContractCallOverrides,
   ): Promise<string>;
   /**
    * Payable: false
@@ -109,7 +109,7 @@ export interface SushiswapFactory {
   createPair(
     tokenA: string,
     tokenB: string,
-    overrides?: ContractTransactionOverrides
+    overrides?: ContractTransactionOverrides,
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -136,7 +136,7 @@ export interface SushiswapFactory {
   getPair(
     parameter0: string,
     parameter1: string,
-    overrides?: ContractCallOverrides
+    overrides?: ContractCallOverrides,
   ): Promise<string>;
   /**
    * Payable: false
@@ -147,7 +147,7 @@ export interface SushiswapFactory {
    */
   setFeeTo(
     _feeTo: string,
-    overrides?: ContractTransactionOverrides
+    overrides?: ContractTransactionOverrides,
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -158,6 +158,6 @@ export interface SushiswapFactory {
    */
   setFeeToSetter(
     _feeToSetter: string,
-    overrides?: ContractTransactionOverrides
+    overrides?: ContractTransactionOverrides,
   ): Promise<ContractTransaction>;
 }

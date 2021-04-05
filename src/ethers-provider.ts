@@ -11,7 +11,7 @@ export class EthersProvider {
       if (!chainName) {
         throw new SushiswapError(
           `Can not find chain name for ${chainId}`,
-          ErrorCodes.canNotFindChainId
+          ErrorCodes.canNotFindChainId,
         );
       }
 
@@ -32,7 +32,7 @@ export class EthersProvider {
    */
   public getContract<TGeneratedTypedContext>(
     abi: ContractInterface,
-    contractAddress: string
+    contractAddress: string,
   ): TGeneratedTypedContext {
     const contract = new Contract(contractAddress, abi, this._ethersProvider);
 
