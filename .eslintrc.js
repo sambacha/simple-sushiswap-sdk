@@ -8,6 +8,7 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended'
   ],
+  ignorePatterns: ["*.spec.ts", "**/vendor/*.ts"],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 12,
