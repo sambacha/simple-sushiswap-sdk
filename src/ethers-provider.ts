@@ -27,7 +27,7 @@ export class EthersProvider {
 
   /**
    * Creates a contract instance
-   * @param abi The ABI
+   * @param abi The abi
    * @param contractAddress The contract address
    */
   public getContract<TGeneratedTypedContext>(

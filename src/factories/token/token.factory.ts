@@ -1,6 +1,6 @@
 import { ContractCallContext, Multicall } from 'ethereum-multicall';
 import { BigNumber } from 'ethers';
-import { ContractContext as ERC20ContractContext } from '../../ABI/types/erc20-contract';
+import { ContractContext as ERC20ContractContext } from '../../abi/types/erc20-contract';
 import { ContractContext } from '../../common/contract-context';
 import { EthersProvider } from '../../ethers-provider';
 import { AllowanceAndBalanceOf } from './models/allowance-balance-of';

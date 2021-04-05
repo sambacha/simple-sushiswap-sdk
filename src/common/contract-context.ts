@@ -19,20 +19,20 @@ export class ContractContext {
   /**
    * sushiswap v2 router
    */
-  public static routerAbi: JsonFragment[] = require('../ABI/sushiswap-router-v2.json');
+  public static routerAbi: JsonFragment[] = require('../abi/sushiswap-router-v2.json');
 
   /**
    * sushiswap v2 factory
    */
-  public static factoryAbi: JsonFragment[] = require('../ABI/sushiswap-factory-v2.json');
+  public static factoryAbi: JsonFragment[] = require('../abi/sushiswap-factory-v2.json');
 
   /**
    * sushiswap v2 pair
    */
-  public static pairAbi: JsonFragment[] = require('../ABI/sushiswap-pair-v2.json');
+  public static pairAbi: JsonFragment[] = require('../abi/sushiswap-pair-v2.json');
 
   /**
    * ERC20 abi
    */
-  public static erc20Abi: JsonFragment[] = require('../ABI/erc-20-abi.json');
+  public static erc20Abi: JsonFragment[] = require('../abi/erc-20-abi.json');
 }
