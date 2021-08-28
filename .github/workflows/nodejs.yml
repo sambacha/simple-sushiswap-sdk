@@ -6,8 +6,8 @@ on:
      paths:
       - "**/**"
       - "!**/*.md/**"
-     paths-ignore:
-      - 'docs/**'
+#     paths-ignore:
+#      - 'docs/**'
 
 defaults:
   run:
