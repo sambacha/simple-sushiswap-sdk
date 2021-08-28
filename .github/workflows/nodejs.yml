@@ -21,7 +21,6 @@ jobs:
   pipeline:
     name: Node ${{ matrix.node }} on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
-    continue-on-error: ${{ matrix.experimental }}
 
     strategy:
       fail-fast: false
