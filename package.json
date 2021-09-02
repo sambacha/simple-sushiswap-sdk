@@ -43,7 +43,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-promise": "^4.3.1",
-    "ethereum-abi-types-generator": "1.1.7",
+    "ethereum-abi-types-generator": "1.1.9",
     "jest": "^26.6.3",
     "ts-jest": "^26.5.4",
     "tsdx": "^0.14.1",
