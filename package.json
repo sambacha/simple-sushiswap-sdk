@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "build": "npm run build:esm && npm run build:cjs",
+    "build": "npm run-script gen-all-contract-type && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "playground": "node ./dist/cjs/__TEST-SCRIPT__/playground.js",
