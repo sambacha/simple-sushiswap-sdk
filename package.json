@@ -5,6 +5,11 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "playground": "node ./dist/cjs/__TEST-SCRIPT__/playground.js",
+    "watch": "tsc --module commonjs --outDir dist/cjs --watch",
     "gen-erc20-abi": "abi-types-generator ./src/abi/erc-20-abi.json --output=./src/abi/types --name=erc20-contract --provider=ethers_v5",
     "gen-sushiswap-router-v2-abi": "abi-types-generator ./src/abi/sushiswap-router-v2.json --output=./src/abi/types --name=sushiswap-router --provider=ethers_v5",
     "gen-sushiswap-factory-v2-abi": "abi-types-generator ./src/abi/sushiswap-factory-v2.json --output=./src/abi/types --name=sushiswap-factory --provider=ethers_v5",
@@ -19,7 +24,6 @@
     "blockchain",
     "sushiswap"
   ],
-  "homepage": "https://github.com/joshstevens19/simple-sushiswap-sdk#readme",
   "dependencies": {
     "bignumber.js": "^9.0.1",
     "decimal.js": "^10.2.1",
