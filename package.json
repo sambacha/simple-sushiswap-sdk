@@ -1,11 +1,11 @@
 {
   "name": "simple-sushiswap-sdk",
-  "version": "1.0.1",
-  "description": "Simple easy to understand SDK for sushiswap",
+  "version": "1.2.0",
+  "description": "sushiswap sdk",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "build": "npm run-script gen-all-contract-type && npm run build:esm && npm run build:cjs",
+    "build": "npm run-script gen-all-contract-types && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "playground": "node ./dist/cjs/__TEST-SCRIPT__/playground.js",
