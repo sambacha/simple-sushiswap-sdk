@@ -1,6 +1,6 @@
 {
   "name": "simple-sushiswap-sdk",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "sushiswap sdk",
   "main": "dist/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "build": "npm run-script gen-all-contract-types && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "playground": "node ./dist/cjs/__TEST-SCRIPT__/playground.js"dddf,
+    "playground": "node ./dist/cjs/__TEST-SCRIPT__/playground.js",
     "watch": "tsc --module commonjs --outDir dist/cjs --watch",
     "gen-erc20-abi": "abi-types-generator ./src/ABI/erc-20-abi.json --output=./src/ABI/types --name=erc20-contract --provider=ethers_v5",
     "gen-sushiswap-router-v2-abi": "abi-types-generator ./src/ABI/sushiswap-router-v2.json --output=./src/ABI/types --name=sushiswap-router --provider=ethers_v5",
