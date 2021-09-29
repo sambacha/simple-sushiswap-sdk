@@ -1,36 +1,16 @@
-# Motivation
+# `simple-sushiswap-sdk` 
 
-As a ethereum dApp developer you try to get your dApp experience as integrated
-as possible, Ethereum right now is hard to show in a web2.0 world as it is. On
-top of this as a developer you have to learn all the complex stuff for the
-blockchain which can take its toll on you.
+> sushiswap minimal sdk
 
-When I was integrating sushiswap on our wallet I found that their `SDK` was a
-bit too much for what I needed. Deepdown from the dApp point of view I only
-really cared about getting the best price for the user with all the fees
-related. I also found myself having to write a lot of custom code which I
-thought could be abstracted away so nobody has to deal with that again. A lot of
-the sushiswap features like routing is all done in their client itself which is
-great but not when you want to use it in a more integrated approach in your on
-dApp.
-
-# Installing
-
-## npm
+## Quickstart
 
 ```bash
-$ npm install simple-sushiswap-sdk
+npm install simple-sushiswap-sdk
 ```
 
-## yarn
+## SDK Documentation
 
-```bash
-$ yarn add simple-sushiswap-sdk
-```
-
-# SDK guide
-
-## Creating a sushiswap pair factory
+## Creating a SushiSwap pair factory
 
 The sushiswap pair factory is an instance which is joint together with the
 `from` token and the `to` token, it is all self contained in the instance and
@@ -121,7 +101,7 @@ const sushiswapPair = new SushiswapPair({
 const sushiswapPair = await sushiswapPair.createFactory();
 ```
 
-## Catching error
+### Catching errors
 
 I know randomly throwing errors with no error codes is a pain when writing
 dApps. In this package when we throw we have our own custom error. This has
@@ -159,9 +139,9 @@ export enum ErrorCodes {
 }
 ```
 
-## Sushiswap pair factory
+### SushiSwap pair factory
 
-### toToken
+#### toToken
 
 This exposes the to token contract information, like decimals, symbol and name.
 
