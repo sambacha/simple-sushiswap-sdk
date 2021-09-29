@@ -112,7 +112,7 @@ export interface SushiswapRouter {
     amountBMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: true
@@ -133,7 +133,7 @@ export interface SushiswapRouter {
     amountETHMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -155,7 +155,7 @@ export interface SushiswapRouter {
     amountOut: BigNumberish,
     reserveIn: BigNumberish,
     reserveOut: BigNumberish,
-    overrides?: ContractCallOverrides,
+    overrides?: ContractCallOverrides
   ): Promise<BigNumber>;
   /**
    * Payable: false
@@ -170,7 +170,7 @@ export interface SushiswapRouter {
     amountIn: BigNumberish,
     reserveIn: BigNumberish,
     reserveOut: BigNumberish,
-    overrides?: ContractCallOverrides,
+    overrides?: ContractCallOverrides
   ): Promise<BigNumber>;
   /**
    * Payable: false
@@ -183,7 +183,7 @@ export interface SushiswapRouter {
   getAmountsIn(
     amountOut: BigNumberish,
     path: string[],
-    overrides?: ContractCallOverrides,
+    overrides?: ContractCallOverrides
   ): Promise<BigNumber[]>;
   /**
    * Payable: false
@@ -196,7 +196,7 @@ export interface SushiswapRouter {
   getAmountsOut(
     amountIn: BigNumberish,
     path: string[],
-    overrides?: ContractCallOverrides,
+    overrides?: ContractCallOverrides
   ): Promise<BigNumber[]>;
   /**
    * Payable: false
@@ -211,7 +211,7 @@ export interface SushiswapRouter {
     amountA: BigNumberish,
     reserveA: BigNumberish,
     reserveB: BigNumberish,
-    overrides?: ContractCallOverrides,
+    overrides?: ContractCallOverrides
   ): Promise<BigNumber>;
   /**
    * Payable: false
@@ -234,7 +234,7 @@ export interface SushiswapRouter {
     amountBMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -255,7 +255,7 @@ export interface SushiswapRouter {
     amountETHMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -276,7 +276,7 @@ export interface SushiswapRouter {
     amountETHMin: BigNumberish,
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -305,7 +305,7 @@ export interface SushiswapRouter {
     v: BigNumberish,
     r: Arrayish,
     s: Arrayish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -334,7 +334,7 @@ export interface SushiswapRouter {
     v: BigNumberish,
     r: Arrayish,
     s: Arrayish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -365,7 +365,7 @@ export interface SushiswapRouter {
     v: BigNumberish,
     r: Arrayish,
     s: Arrayish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: true
@@ -382,7 +382,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: true
@@ -399,7 +399,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: true
@@ -416,7 +416,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -435,7 +435,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -454,7 +454,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -473,7 +473,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -492,7 +492,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -511,7 +511,7 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -530,6 +530,6 @@ export interface SushiswapRouter {
     path: string[],
     to: string,
     deadline: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
 }
