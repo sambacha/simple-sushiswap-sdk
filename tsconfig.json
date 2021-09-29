@@ -7,12 +7,18 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-     "moduleResolution": "node",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,
+    "resolveJsonModule": true
   },
   "include": ["src/abi/**/*.json", "src/**/*"],
-  "exclude": ["node_modules","lib/*.ts", "**/*.spec.ts", "**/*.mock.ts", "src/jest/**/*"]
+  "exclude": [
+    "node_modules",
+    "lib/*.ts",
+    "**/*.spec.ts",
+    "**/*.mock.ts",
+    "src/jest/**/*"
+  ]
 }
