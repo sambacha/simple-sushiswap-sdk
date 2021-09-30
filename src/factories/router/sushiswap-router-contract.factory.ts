@@ -1,5 +1,5 @@
 import { BigNumberish, BytesLike } from 'ethers';
-import { ContractContext as RouterContractContext } from '../../abi/types/sushiswap-router';
+import { ContractContext as RouterContractContext } from '../../ABI/types/sushiswap-router';
 import { ContractContext } from '../../common/contract-context';
 import { EthersProvider } from '../../ethers-provider';
 
