@@ -1,5 +1,5 @@
 import { BigNumberish } from 'ethers';
-import { ContractContext as FactoryContractContext } from '../../abi/types/sushiswap-factory';
+import { ContractContext as FactoryContractContext } from '../../ABI/types/sushiswap-factory';
 import { ContractContext } from '../../common/contract-context';
 import { EthersProvider } from '../../ethers-provider';
 
