@@ -1,5 +1,5 @@
 {
-  "name": "simple-sushiswap-sdk",
+  "name": "sushi-sdk",
   "version": "1.3.0",
   "description": "sushiswap sdk",
   "main": "dist/index.js",
