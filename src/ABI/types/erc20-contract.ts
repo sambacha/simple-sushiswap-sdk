@@ -69,6 +69,16 @@ export type Erc20ContractMethodNames =
   | 'symbol'
   | 'transfer'
   | 'allowance';
+export interface ApprovalEventEmittedResponse {
+  owner: string;
+  spender: string;
+  value: BigNumberish;
+}
+export interface TransferEventEmittedResponse {
+  from: string;
+  to: string;
+  value: BigNumberish;
+}
 export interface Erc20Contract {
   /**
    * Payable: false
@@ -88,7 +98,7 @@ export interface Erc20Contract {
   approve(
     _spender: string,
     _value: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -110,7 +120,7 @@ export interface Erc20Contract {
     _from: string,
     _to: string,
     _value: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -128,7 +138,7 @@ export interface Erc20Contract {
    */
   balanceOf(
     _owner: string,
-    overrides?: ContractCallOverrides,
+    overrides?: ContractCallOverrides
   ): Promise<BigNumber>;
   /**
    * Payable: false
@@ -148,7 +158,7 @@ export interface Erc20Contract {
   transfer(
     _to: string,
     _value: BigNumberish,
-    overrides?: ContractTransactionOverrides,
+    overrides?: ContractTransactionOverrides
   ): Promise<ContractTransaction>;
   /**
    * Payable: false
@@ -161,6 +171,6 @@ export interface Erc20Contract {
   allowance(
     _owner: string,
     _spender: string,
-    overrides?: ContractCallOverrides,
+    overrides?: ContractCallOverrides
   ): Promise<BigNumber>;
 }
