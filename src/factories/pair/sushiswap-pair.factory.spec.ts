@@ -59,9 +59,8 @@ describe('SushiswapPairFactory', () => {
 
     describe('findAllPossibleRoutesWithQuote', () => {
       it('should return all possible routes with quotes', async () => {
-        const result = await sushiswapPairFactory.findAllPossibleRoutesWithQuote(
-          '1',
-        );
+        const result =
+          await sushiswapPairFactory.findAllPossibleRoutesWithQuote('1');
         expect(result).not.toBeUndefined();
       });
     });
@@ -125,10 +124,10 @@ describe('SushiswapPairFactory', () => {
 
     describe('generateApproveMaxAllowanceData', () => {
       it('should generate the approve max allowance data', async () => {
-        const result = await sushiswapPairFactory.generateApproveMaxAllowanceData();
+        const result =
+          await sushiswapPairFactory.generateApproveMaxAllowanceData();
         expect(result).toEqual({
-          data:
-            '0x095ea7b3000000000000000000000000d9e1ce17f2641f24ae83637ab66a2cca9c378b9fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+          data: '0x095ea7b3000000000000000000000000d9e1ce17f2641f24ae83637ab66a2cca9c378b9fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
           from: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
           to: '0x111111111117dC0aa78b770fA6A738034120C302',
           value: '0x00',
@@ -178,9 +177,8 @@ describe('SushiswapPairFactory', () => {
 
     describe('findAllPossibleRoutesWithQuote', () => {
       it('should return all possible routes with quotes', async () => {
-        const result = await sushiswapPairFactory.findAllPossibleRoutesWithQuote(
-          '1',
-        );
+        const result =
+          await sushiswapPairFactory.findAllPossibleRoutesWithQuote('1');
         expect(result).not.toBeUndefined();
       });
     });
@@ -244,10 +242,10 @@ describe('SushiswapPairFactory', () => {
 
     describe('generateApproveMaxAllowanceData', () => {
       it('should generate the approve max allowance data', async () => {
-        const result = await sushiswapPairFactory.generateApproveMaxAllowanceData();
+        const result =
+          await sushiswapPairFactory.generateApproveMaxAllowanceData();
         expect(result).toEqual({
-          data:
-            '0x095ea7b3000000000000000000000000d9e1ce17f2641f24ae83637ab66a2cca9c378b9fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
+          data: '0x095ea7b3000000000000000000000000d9e1ce17f2641f24ae83637ab66a2cca9c378b9fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff',
           from: '0xB1E6079212888f0bE0cf55874B2EB9d7a5e02cD9',
           to: '0x111111111117dC0aa78b770fA6A738034120C302',
           value: '0x00',
@@ -297,9 +295,8 @@ describe('SushiswapPairFactory', () => {
 
     describe('findAllPossibleRoutesWithQuote', () => {
       it('should return all possible routes with quotes', async () => {
-        const result = await sushiswapPairFactory.findAllPossibleRoutesWithQuote(
-          '1',
-        );
+        const result =
+          await sushiswapPairFactory.findAllPossibleRoutesWithQuote('1');
         expect(result).not.toBeUndefined();
       });
     });

@@ -2,7 +2,8 @@
 *.tar
 *.zip
 .DS_Store
-
+web/
+build/
 # Logs
 logs
 *.log

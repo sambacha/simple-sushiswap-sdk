@@ -1,3 +1,9 @@
+/**
+ *
+ * @export
+ * @class Constants
+ * @typedef {Constants}
+ */
 export class Constants {
   public static readonly HEX_START = '0x';
   public static readonly EMPTY_HEX_STRING = `${Constants.HEX_START}00`;

@@ -11,10 +11,11 @@ export class TokenFactory {
     ethersProvider: this._ethersProvider.provider,
   });
 
-  private _erc20TokenContracy = this._ethersProvider.getContract<ERC20ContractContext>(
-    JSON.stringify(ContractContext.erc20Abi),
-    this._tokenContractAddress,
-  );
+  private _erc20TokenContracy =
+    this._ethersProvider.getContract<ERC20ContractContext>(
+      JSON.stringify(ContractContext.erc20Abi),
+      this._tokenContractAddress,
+    );
 
   constructor(
     private _tokenContractAddress: string,

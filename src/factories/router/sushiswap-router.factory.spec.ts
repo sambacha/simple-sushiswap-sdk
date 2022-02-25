@@ -41,9 +41,10 @@ describe('SushiswapRouterFactory', () => {
 
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
-        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1),
-        );
+        const result =
+          await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
+            new BigNumber(1),
+          );
         expect(result.length > 0).toEqual(true);
       });
 
@@ -126,9 +127,10 @@ describe('SushiswapRouterFactory', () => {
 
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
-        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1),
-        );
+        const result =
+          await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
+            new BigNumber(1),
+          );
         expect(result.length > 0).toEqual(true);
       });
 
@@ -212,9 +214,10 @@ describe('SushiswapRouterFactory', () => {
 
     describe('getAllPossibleRoutesWithQuotes', () => {
       it('should get all possible routes with quote', async () => {
-        const result = await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
-          new BigNumber(1),
-        );
+        const result =
+          await sushiswapRouterFactory.getAllPossibleRoutesWithQuotes(
+            new BigNumber(1),
+          );
         expect(result.length > 0).toEqual(true);
       });
 

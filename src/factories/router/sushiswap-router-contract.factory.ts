@@ -4,10 +4,11 @@ import { ContractContext } from '../../common/contract-context';
 import { EthersProvider } from '../../ethers-provider';
 
 export class SushiswapRouterContractFactory {
-  private _sushiswapRouterContract = this._ethersProvider.getContract<RouterContractContext>(
-    JSON.stringify(ContractContext.routerAbi),
-    ContractContext.routerAddress,
-  );
+  private _sushiswapRouterContract =
+    this._ethersProvider.getContract<RouterContractContext>(
+      JSON.stringify(ContractContext.routerAbi),
+      ContractContext.routerAddress,
+    );
 
   constructor(private _ethersProvider: EthersProvider) {}
 
