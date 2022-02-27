@@ -4,10 +4,11 @@ import { ContractContext } from '../../common/contract-context';
 import { EthersProvider } from '../../ethers-provider';
 
 export class SushiswapPairContractFactory {
-  private _sushiswapPairFactory = this._ethersProvider.getContract<PairContractContext>(
-    JSON.stringify(ContractContext.pairAbi),
-    ContractContext.pairAddress,
-  );
+  private _sushiswapPairFactory =
+    this._ethersProvider.getContract<PairContractContext>(
+      JSON.stringify(ContractContext.pairAbi),
+      ContractContext.pairAddress,
+    );
 
   constructor(private _ethersProvider: EthersProvider) {}
 

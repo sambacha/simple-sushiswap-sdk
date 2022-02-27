@@ -3,9 +3,8 @@ import { ChainId, SushiswapPairContractFactoryPublic, WETH } from '../../';
 import { MOCK1INCH } from '../../mocks/1inch-token.mock';
 
 describe('SushiswapPairContractFactoryPublic', () => {
-  const sushiswapPairContractFactoryPublic = new SushiswapPairContractFactoryPublic(
-    ChainId.MAINNET,
-  );
+  const sushiswapPairContractFactoryPublic =
+    new SushiswapPairContractFactoryPublic(ChainId.MAINNET);
 
   it('allPairs', async () => {
     const result = await sushiswapPairContractFactoryPublic.allPairs('0x01');

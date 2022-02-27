@@ -222,15 +222,14 @@ export class SushiswapPairFactory {
    * Has got enough balance to do the trade (eth check only)
    * @param amount The amount you want to swap
    */
-  private async hasGotEnoughBalanceEth(
-    amount: string,
-  ): Promise<{
+  private async hasGotEnoughBalanceEth(amount: string): Promise<{
     hasEnough: boolean;
     balance: string;
   }> {
-    const balance = await this._sushiswapPairFactoryContext.ethersProvider.balanceOf(
-      this._sushiswapPairFactoryContext.ethereumAddress,
-    );
+    const balance =
+      await this._sushiswapPairFactoryContext.ethersProvider.balanceOf(
+        this._sushiswapPairFactoryContext.ethereumAddress,
+      );
 
     const bigNumberBalance = new BigNumber(balance).shiftedBy(
       Constants.ETH_MAX_DECIMALS * -1,
@@ -356,7 +355,8 @@ export class SushiswapPairFactory {
       tradeExpires.toString(),
     );
 
-    const allowanceAndBalanceOf = await this.getAllowanceAndBalanceOfForFromToken();
+    const allowanceAndBalanceOf =
+      await this.getAllowanceAndBalanceOfForFromToken();
 
     const tradeContext: TradeContext = {
       baseConvertRequest: erc20Amount.toFixed(),
@@ -417,7 +417,8 @@ export class SushiswapPairFactory {
       tradeExpires.toString(),
     );
 
-    const allowanceAndBalanceOf = await this.getAllowanceAndBalanceOfForFromToken();
+    const allowanceAndBalanceOf =
+      await this.getAllowanceAndBalanceOfForFromToken();
 
     const tradeContext: TradeContext = {
       baseConvertRequest: erc20Amount.toFixed(),
