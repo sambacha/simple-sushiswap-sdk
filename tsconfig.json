@@ -1,14 +1,18 @@
 {
   "compilerOptions": {
-    "target": "es2015",
+    "target": "es2020",
     "lib": ["dom", "esnext"],
-    "module": "esnext",
+    "module": "node16",
+    "moduleResolution": "node16",
+    "moduleDetection": "force",
     "declaration": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
+    "useUnknownInCatchVariables": false,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
@@ -19,6 +23,7 @@
     "lib/*.ts",
     "**/*.spec.ts",
     "**/*.mock.ts",
-    "src/jest/**/*"
+    "src/jest/**/*",
+   "__tests__/**"
   ]
 }
